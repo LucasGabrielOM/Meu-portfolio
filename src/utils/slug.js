@@ -1,5 +1,10 @@
-export const toSlug = (title) =>
-  title
+export function toSlug(text) {
+  if (!text) return "";
+
+  return text
+    .toString()
     .toLowerCase()
+    .trim()
     .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
+    .replace(/[^\w-]+/g, "");
+}

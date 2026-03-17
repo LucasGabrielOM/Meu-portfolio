@@ -45,7 +45,7 @@ export default function Comments() {
     fetchComments();
   }, []);
 
-  // Reset page when filter/search changes
+  // Reiniciar página quando o filtro/pesquisa mudar
   useEffect(() => {
     setPage(1);
   }, [filter, search]);
@@ -59,7 +59,7 @@ export default function Comments() {
   };
 
   const remove = async (id) => {
-    if (!confirm("Delete this comment?")) return;
+    if (!confirm("Excluir este comentário?")) return;
     await supabase.from("portfolio_comments").delete().eq("id", id);
     fetchComments();
   };
@@ -68,14 +68,14 @@ export default function Comments() {
 
   const formatDate = (dateStr) => {
     if (!dateStr) return "";
-    return new Date(dateStr).toLocaleDateString("en-US", {
+    return new Date(dateStr).toLocaleDateString("pt-BR", {
       month: "short",
       day: "numeric",
       year: "numeric",
     });
   };
 
-  // Filter + search
+  // Filtro + pesquisa
   const filtered = useMemo(() => {
     let result =
       filter === "pinned" ? comments.filter((c) => c.is_pinned) : comments;
@@ -90,13 +90,13 @@ export default function Comments() {
     return result;
   }, [comments, filter, search]);
 
-  // Pagination
+  // Paginação
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      {/* Cabeçalho */}
       <div className="flex items-start sm:items-center justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-3">
           <div className="relative">
@@ -107,19 +107,19 @@ export default function Comments() {
           </div>
           <div>
             <h1 className="text-xl sm:text-2xl font-bold text-white">
-              Comments
+              Comentários
             </h1>
             <p className="text-gray-500 text-xs">
-              {comments.length} total · {pinnedCount} pinned
+              {comments.length} total · {pinnedCount} fixados
             </p>
           </div>
         </div>
 
-        {/* Filter tabs */}
+        {/* Abas de filtro */}
         <div className="flex gap-1 p-1 rounded-xl bg-white/5 border border-white/10">
           {[
-            { value: "all", label: "All", count: comments.length },
-            { value: "pinned", label: "Pinned", count: pinnedCount },
+            { value: "all", label: "Todos", count: comments.length },
+            { value: "pinned", label: "Fixados", count: pinnedCount },
           ].map((tab) => (
             <button
               key={tab.value}
@@ -145,13 +145,13 @@ export default function Comments() {
         </div>
       </div>
 
-      {/* Stats row */}
+      {/* Linha de estatísticas */}
       <div className="grid grid-cols-3 gap-3">
         {[
           { label: "Total", value: comments.length, color: "text-indigo-400" },
-          { label: "Pinned", value: pinnedCount, color: "text-purple-400" },
+          { label: "Fixados", value: pinnedCount, color: "text-purple-400" },
           {
-            label: "Unpinned",
+            label: "Não Fixados",
             value: comments.length - pinnedCount,
             color: "text-blue-400",
           },
@@ -167,14 +167,14 @@ export default function Comments() {
         ))}
       </div>
 
-      {/* Search bar */}
+      {/* Barra de pesquisa */}
       <div className="relative">
         <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
         <input
           type="text"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          placeholder="Search by name or message..."
+          placeholder="Pesquisar por nome ou mensagem..."
           className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-10 py-2.5 text-gray-200 placeholder-gray-600 text-sm outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/20 transition-all"
         />
         {search && (
@@ -187,15 +187,15 @@ export default function Comments() {
         )}
       </div>
 
-      {/* Result count when searching */}
+      {/* Contagem de resultados durante pesquisa */}
       {search && (
         <p className="text-xs text-gray-500 -mt-3">
-          {filtered.length} result{filtered.length !== 1 ? "s" : ""} for "
+          {filtered.length} resultado{filtered.length !== 1 ? "s" : ""} para "
           {search}"
         </p>
       )}
 
-      {/* Comments List */}
+      {/* Lista de Comentários */}
       {loading ? (
         <div className="flex items-center justify-center py-20">
           <div className="w-7 h-7 border-2 border-white/10 border-t-indigo-500 rounded-full animate-spin" />
@@ -206,10 +206,10 @@ export default function Comments() {
             <MessageSquare className="w-10 h-10 text-gray-700 mx-auto mb-3" />
             <p className="text-gray-500 text-sm">
               {search
-                ? "No comments match your search."
+                ? "Nenhum comentário corresponde à sua pesquisa."
                 : filter === "pinned"
-                  ? "No pinned comments."
-                  : "No comments yet."}
+                  ? "Nenhum comentário fixado."
+                  : "Nenhum comentário ainda."}
             </p>
           </div>
         </Card>
@@ -240,15 +240,15 @@ export default function Comments() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap mb-1">
                       <span className="text-sm font-semibold text-white">
-                        {/* Highlight search match in name */}
+                        {/* Destacar correspondência da pesquisa no nome */}
                         {highlightMatch(
-                          comment.user_name || "Anonymous",
+                          comment.user_name || "Anônimo",
                           search,
                         )}
                       </span>
                       {comment.is_pinned && (
                         <span className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-indigo-500/15 border border-indigo-500/25 text-indigo-300 text-xs">
-                          <Pin className="w-2.5 h-2.5" /> Pinned
+                          <Pin className="w-2.5 h-2.5" /> Fixado
                         </span>
                       )}
                       <span className="flex items-center gap-1 text-gray-600 text-xs ml-auto shrink-0">
@@ -257,16 +257,16 @@ export default function Comments() {
                       </span>
                     </div>
                     <p className="text-gray-300 text-sm leading-relaxed">
-                      {/* Highlight search match in content */}
+                      {/* Destacar correspondência da pesquisa no conteúdo */}
                       {highlightMatch(comment.content || "", search)}
                     </p>
                   </div>
 
-                  {/* Action buttons */}
+                  {/* Botões de ação */}
                   <div className="flex items-center gap-1.5 shrink-0">
                     <button
                       onClick={() => pin(comment.id, !comment.is_pinned)}
-                      title={comment.is_pinned ? "Unpin" : "Pin"}
+                      title={comment.is_pinned ? "Desafixar" : "Fixar"}
                       className={`p-2 rounded-lg border transition-all duration-200 ${
                         comment.is_pinned
                           ? "border-indigo-500/30 bg-indigo-500/10 text-indigo-400 hover:bg-indigo-500/20"
@@ -293,12 +293,12 @@ export default function Comments() {
         </div>
       )}
 
-      {/* Pagination */}
+      {/* Paginação */}
       {totalPages > 1 && (
         <div className="flex items-center justify-between gap-3 pt-2">
           <p className="text-xs text-gray-500">
-            Showing {(page - 1) * PAGE_SIZE + 1}–
-            {Math.min(page * PAGE_SIZE, filtered.length)} of {filtered.length}
+            Mostrando {(page - 1) * PAGE_SIZE + 1}–
+            {Math.min(page * PAGE_SIZE, filtered.length)} de {filtered.length}
           </p>
           <div className="flex items-center gap-1">
             <button
@@ -309,7 +309,7 @@ export default function Comments() {
               <ChevronLeft className="w-4 h-4" />
             </button>
 
-            {/* Page numbers */}
+            {/* Números das páginas */}
             {Array.from({ length: totalPages }, (_, i) => i + 1)
               .filter(
                 (p) => p === 1 || p === totalPages || Math.abs(p - page) <= 1,
@@ -356,7 +356,7 @@ export default function Comments() {
   );
 }
 
-// Highlight matching text
+// Destacar texto correspondente
 function highlightMatch(text, query) {
   if (!query.trim()) return text;
   const regex = new RegExp(

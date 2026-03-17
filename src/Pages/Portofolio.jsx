@@ -1,7 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-
 import { supabase } from "../supabase"; 
-
 import PropTypes from "prop-types";
 import SwipeableViews from "react-swipeable-views";
 import { useTheme } from "@mui/material/styles";
@@ -16,7 +14,6 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import Certificate from "../components/Certificate";
 import { Code, Award, Boxes } from "lucide-react";
-
 
 const ToggleButton = ({ onClick, isShowingMore }) => (
   <button
@@ -46,7 +43,7 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
     "
   >
     <span className="relative z-10 flex items-center gap-2">
-      {isShowingMore ? "See Less" : "See More"}
+      {isShowingMore ? "Ver Menos" : "Ver Mais"}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"
@@ -69,7 +66,6 @@ const ToggleButton = ({ onClick, isShowingMore }) => (
     <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-500/50 transition-all duration-300 group-hover:w-full"></span>
   </button>
 );
-
 
 function TabPanel({ children, value, index, ...other }) {
   return (
@@ -102,7 +98,7 @@ function a11yProps(index) {
   };
 }
 
-// techStacks tetap sama
+// techStacks permanece igual
 const techStacks = [
   { icon: "html.svg", language: "HTML" },
   { icon: "css.svg", language: "CSS" },
@@ -134,38 +130,35 @@ export default function FullWidthTabs() {
     });
   }, []);
 
-
   const fetchData = useCallback(async () => {
     try {
-      // Mengambil data dari Supabase secara paralel
+      // Buscando dados do Supabase em paralelo
       const [projectsResponse, certificatesResponse] = await Promise.all([
         supabase.from("projects").select("*").order('id', { ascending: false }),
         supabase.from("certificates").select("*").order('id', { ascending: false }), 
       ]);
 
-      // Error handling untuk setiap request
+      // Tratamento de erros para cada requisição
       if (projectsResponse.error) throw projectsResponse.error;
       if (certificatesResponse.error) throw certificatesResponse.error;
 
-      // Supabase mengembalikan data dalam properti 'data'
+      // Supabase retorna os dados na propriedade 'data'
       const projectData = projectsResponse.data || [];
       const certificateData = certificatesResponse.data || [];
 
       setProjects(projectData);
       setCertificates(certificateData);
 
-      // Store in localStorage (fungsionalitas ini tetap dipertahankan)
+      // Armazenar no localStorage (funcionalidade mantida)
       localStorage.setItem("projects", JSON.stringify(projectData));
       localStorage.setItem("certificates", JSON.stringify(certificateData));
     } catch (error) {
-      console.error("Error fetching data from Supabase:", error.message);
+      console.error("Erro ao buscar dados do Supabase:", error.message);
     }
   }, []);
 
-
-
   useEffect(() => {
-    // Coba ambil dari localStorage dulu untuk laod lebih cepat
+    // Tentar buscar do localStorage primeiro para carregamento mais rápido
     const cachedProjects = localStorage.getItem('projects');
     const cachedCertificates = localStorage.getItem('certificates');
 
@@ -174,7 +167,7 @@ export default function FullWidthTabs() {
         setCertificates(JSON.parse(cachedCertificates));
     }
     
-    fetchData(); // Tetap panggil fetchData untuk sinkronisasi data terbaru
+    fetchData(); // Ainda chama fetchData para sincronizar com dados mais recentes
   }, [fetchData]);
 
   const handleChange = (event, newValue) => {
@@ -192,10 +185,9 @@ export default function FullWidthTabs() {
   const displayedProjects = showAllProjects ? projects : projects.slice(0, initialItems);
   const displayedCertificates = showAllCertificates ? certificates : certificates.slice(0, initialItems);
 
-  // Sisa dari komponen (return statement) tidak ada perubahan
   return (
-    <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-hidden" id="Portofolio">
-      {/* Header section - unchanged */}
+    <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-hidden" id="Portfolio">
+      {/* Seção do cabeçalho */}
       <div className="text-center pb-10" data-aos="fade-up" data-aos-duration="1000">
         <h2 className="inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
           <span style={{
@@ -205,17 +197,17 @@ export default function FullWidthTabs() {
             backgroundClip: 'text',
             WebkitTextFillColor: 'transparent'
           }}>
-            Portfolio Showcase
+             Portfólio
           </span>
         </h2>
         <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2">
-          Explore my journey through projects, certifications, and technical expertise. 
-          Each section represents a milestone in my continuous learning path.
+          Explore minha jornada através de projetos, certificações e expertise técnica. 
+          Cada seção representa um marco no meu caminho contínuo de aprendizado.
         </p>
       </div>
 
       <Box sx={{ width: "100%" }}>
-        {/* AppBar and Tabs section - unchanged */}
+        {/* Seção AppBar e Tabs */}
         <AppBar
           position="static"
           elevation={0}
@@ -239,7 +231,6 @@ export default function FullWidthTabs() {
           }}
           className="md:px-4"
         >
-          {/* Tabs remain unchanged */}
           <Tabs
             value={value}
             onChange={handleChange}
@@ -285,17 +276,17 @@ export default function FullWidthTabs() {
           >
             <Tab
               icon={<Code className="mb-2 w-5 h-5 transition-all duration-300" />}
-              label="Projects"
+              label="Projetos"
               {...a11yProps(0)}
             />
             <Tab
               icon={<Award className="mb-2 w-5 h-5 transition-all duration-300" />}
-              label="Certificates"
+              label="Certificados"
               {...a11yProps(1)}
             />
             <Tab
               icon={<Boxes className="mb-2 w-5 h-5 transition-all duration-300" />}
-              label="Tech Stack"
+              label="Tecnologias"
               {...a11yProps(2)}
             />
           </Tabs>

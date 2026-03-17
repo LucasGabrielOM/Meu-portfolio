@@ -352,14 +352,26 @@ export default function Projects() {
     fetchProjects();
   }, []);
 
-  const uploadImage = async (f) => {
-    const fileName = `${Date.now()}-${f.name}`;
-    await supabase.storage.from("project-images").upload(fileName, f);
-    const { data } = supabase.storage
-      .from("project-images")
-      .getPublicUrl(fileName);
-    return data.publicUrl;
-  };
+const uploadImage = async (file) => {
+  const fileName = `${Date.now()}-${file.name}`;
+
+  const { error } = await supabase.storage
+    .from("project-images")
+    .upload(fileName, file);
+
+  if (error) {
+    console.error("Erro ao enviar imagem:", error);
+    alert("Erro ao enviar imagem");
+    return "";
+  }
+
+  const { data } = supabase.storage
+    .from("project-images")
+    .getPublicUrl(fileName);
+
+  return data.publicUrl;
+};
+
 
   const handleCreate = async (form, file) => {
     setUploading(true);
@@ -415,7 +427,7 @@ export default function Projects() {
   };
 
   return (
-    <div className="space-y-6z ">
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between gap-4 mb-6 flex-wrap">
         <div className="flex items-center gap-3">

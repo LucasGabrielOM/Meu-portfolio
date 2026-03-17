@@ -7,11 +7,13 @@ const Navbar = () => {
     const [activeSection, setActiveSection] = useState("Home");
     
     const navItems = [
-        { href: "#Home", label: "Home" },
-        { href: "#About", label: "About" },
-        { href: "#Portofolio", label: "Portofolio" },
-        { href: "#Contact", label: "Contact" },
-    ];
+  { href: "#Início", label: "Início" },
+  { href: "#Sobre", label: "Sobre" },
+  { href: "#Projetos", label: "Projetos" },
+  { href: "#Contato", label: "Contato" },
+];
+
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -84,7 +86,7 @@ const Navbar = () => {
                             onClick={(e) => scrollToSection(e, "#Home")}
                             className="text-xl font-bold bg-gradient-to-r from-[#a855f7] to-[#6366f1] bg-clip-text text-transparent"
                         >
-                            Ekizr
+                            LucasgabrielOM
                         </a>
                     </div>
         

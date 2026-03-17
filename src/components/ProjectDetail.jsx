@@ -77,7 +77,7 @@ const ProjectStats = ({ project }) => {
             {techStackCount}
           </div>
           <div className="text-[10px] md:text-xs text-gray-400">
-            Total Teknologi
+            Total de Tecnologias
           </div>
         </div>
       </div>
@@ -94,7 +94,7 @@ const ProjectStats = ({ project }) => {
             {featuresCount}
           </div>
           <div className="text-[10px] md:text-xs text-gray-400">
-            Fitur Utama
+            Principais Funcionalidades
           </div>
         </div>
       </div>
@@ -106,9 +106,9 @@ const handleGithubClick = (githubLink) => {
   if (githubLink === "Private") {
     Swal.fire({
       icon: "info",
-      title: "Source Code Private",
-      text: "Maaf, source code untuk proyek ini bersifat privat.",
-      confirmButtonText: "Mengerti",
+      title: "Código Fonte Privado",
+      text: "Desculpe, o código fonte deste projeto é privado.",
+      confirmButtonText: "Entendi",
       confirmButtonColor: "#3085d6",
       background: "#030014",
       color: "#ffffff",
@@ -127,7 +127,7 @@ const ProjectDetails = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     const storedProjects = JSON.parse(localStorage.getItem("projects")) || [];
-    // Cari project berdasarkan slug yang di-generate dari Title
+    // Buscar projeto pelo slug gerado a partir do Title
     const selectedProject = storedProjects.find(
       (p) => toSlug(p.Title) === slug,
     );
@@ -137,7 +137,7 @@ const ProjectDetails = () => {
         ...selectedProject,
         Features: selectedProject.Features || [],
         TechStack: selectedProject.TechStack || [],
-        Github: selectedProject.Github || "https://github.com/EkiZR",
+        Github: selectedProject.Github || "https://github.com/lucasgabriel",
       };
       setProject(enhancedProject);
     }
@@ -149,32 +149,32 @@ const ProjectDetails = () => {
         <div className="text-center space-y-6 animate-fadeIn">
           <div className="w-16 h-16 md:w-24 md:h-24 mx-auto border-4 border-blue-500/30 border-t-blue-500 rounded-full animate-spin" />
           <h2 className="text-xl md:text-3xl font-bold text-white">
-            Loading Project...
+            Carregando Projeto...
           </h2>
         </div>
       </div>
     );
   }
 
-  const projectUrl = `https://ekizr.com/project/${toSlug(project.Title)}`;
+  const projectUrl = `https://Lucasgabriel.com/project/${toSlug(project.Title)}`;
 
   return (
     <>
       <Helmet>
-        <title>{project.Title} — Eki Zulfar Rachman</title>
+        <title>{project.Title} — Lucas Gabriel de Oliveira Moreira</title>
         <meta
           name="description"
           content={
             project.Description
               ? project.Description.slice(0, 155)
-              : `Project ${project.Title} oleh Eki Zulfar Rachman — Frontend Web Developer.`
+              : `Projeto ${project.Title} por Lucas Gabriel de Oliveira Moreira —  Desenvolvedor Full-stack júnior .`
           }
         />
         <meta name="robots" content="index, follow" />
         <link rel="canonical" href={projectUrl} />
         <meta
           property="og:title"
-          content={`${project.Title} — Eki Zulfar Rachman`}
+          content={`${project.Title} — Lucas Gabriel de Oliveira Moreira`}
         />
         <meta
           property="og:description"
@@ -192,8 +192,8 @@ const ProjectDetails = () => {
             "url": "${projectUrl}",
             "author": {
               "@type": "Person",
-              "name": "Eki Zulfar Rachman",
-              "url": "https://ekizr.com"
+              "name": "Lucas Gabriel de Oliveira Moreira",
+              "url": "https://Lucasgabriel.com"
             }
           }
         `}</script>
@@ -217,10 +217,10 @@ const ProjectDetails = () => {
                 className="group inline-flex items-center space-x-1.5 md:space-x-2 px-3 md:px-5 py-2 md:py-2.5 bg-white/5 backdrop-blur-xl rounded-xl text-white/90 hover:bg-white/10 transition-all duration-300 border border-white/10 hover:border-white/20 text-sm md:text-base"
               >
                 <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 group-hover:-translate-x-1 transition-transform" />
-                <span>Back</span>
+                <span>Voltar</span>
               </button>
               <div className="flex items-center space-x-1 md:space-x-2 text-sm md:text-base text-white/50">
-                <span>Projects</span>
+                <span>Projetos</span>
                 <ChevronRight className="w-3 h-3 md:w-4 md:h-4" />
                 <span className="text-white/90 truncate">{project.Title}</span>
               </div>
@@ -255,7 +255,7 @@ const ProjectDetails = () => {
                   >
                     <div className="absolute inset-0 translate-y-[100%] bg-gradient-to-r from-blue-600/10 to-purple-600/10 transition-transform duration-300 group-hover:translate-y-[0%]" />
                     <ExternalLink className="relative w-4 h-4 md:w-5 md:h-5 group-hover:rotate-12 transition-transform" />
-                    <span className="relative font-medium">Live Demo</span>
+                    <span className="relative font-medium">Demo ao Vivo</span>
                   </a>
 
                   <a
@@ -276,7 +276,7 @@ const ProjectDetails = () => {
                 <div className="space-y-4 md:space-y-6">
                   <h3 className="text-lg md:text-xl font-semibold text-white/90 mt-[3rem] md:mt-0 flex items-center gap-2 md:gap-3">
                     <Code2 className="w-4 h-4 md:w-5 md:h-5 text-blue-400" />
-                    Technologies Used
+                    Tecnologias Utilizadas
                   </h3>
                   {project.TechStack.length > 0 ? (
                     <div className="flex flex-wrap gap-2 md:gap-3">
@@ -286,7 +286,7 @@ const ProjectDetails = () => {
                     </div>
                   ) : (
                     <p className="text-sm md:text-base text-gray-400 opacity-50">
-                      No technologies added.
+                      Nenhuma tecnologia adicionada.
                     </p>
                   )}
                 </div>
@@ -307,7 +307,7 @@ const ProjectDetails = () => {
                 <div className="bg-white/[0.02] backdrop-blur-xl rounded-2xl p-8 border border-white/10 space-y-6 hover:border-white/20 transition-colors duration-300 group">
                   <h3 className="text-xl font-semibold text-white/90 flex items-center gap-3">
                     <Star className="w-5 h-5 text-yellow-400 group-hover:rotate-[20deg] transition-transform duration-300" />
-                    Key Features
+                    Principais Funcionalidades
                   </h3>
                   {project.Features.length > 0 ? (
                     <ul className="list-none space-y-2">
@@ -317,7 +317,7 @@ const ProjectDetails = () => {
                     </ul>
                   ) : (
                     <p className="text-gray-400 opacity-50">
-                      No features added.
+                      Nenhuma funcionalidade adicionada.
                     </p>
                   )}
                 </div>
