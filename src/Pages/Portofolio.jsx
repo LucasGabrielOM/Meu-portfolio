@@ -1,373 +1,215 @@
-import React, { useEffect, useState, useCallback } from "react";
-import { supabase } from "../supabase"; 
+import { useMemo, useState } from "react";
 import PropTypes from "prop-types";
-import SwipeableViews from "react-swipeable-views";
-import { useTheme } from "@mui/material/styles";
-import AppBar from "@mui/material/AppBar";
-import Tabs from "@mui/material/Tabs";
-import Tab from "@mui/material/Tab";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import CardProject from "../components/CardProject";
-import TechStackIcon from "../components/TechStackIcon";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import Certificate from "../components/Certificate";
-import { Code, Award, Boxes } from "lucide-react";
+import { Code2, Github, Layers3, ExternalLink } from "lucide-react";
 
-const ToggleButton = ({ onClick, isShowingMore }) => (
-  <button
-    onClick={onClick}
-    className="
-      px-3 py-1.5
-      text-slate-300 
-      hover:text-white 
-      text-sm 
-      font-medium 
-      transition-all 
-      duration-300 
-      ease-in-out
-      flex 
-      items-center 
-      gap-2
-      bg-white/5 
-      hover:bg-white/10
-      rounded-md
-      border 
-      border-white/10
-      hover:border-white/20
-      backdrop-blur-sm
-      group
-      relative
-      overflow-hidden
-    "
-  >
-    <span className="relative z-10 flex items-center gap-2">
-      {isShowingMore ? "Ver Menos" : "Ver Mais"}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className={`
-          transition-transform 
-          duration-300 
-          ${isShowingMore ? "group-hover:-translate-y-0.5" : "group-hover:translate-y-0.5"}
-        `}
-      >
-        <polyline points={isShowingMore ? "18 15 12 9 6 15" : "6 9 12 15 18 9"}></polyline>
-      </svg>
-    </span>
-    <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-purple-500/50 transition-all duration-300 group-hover:w-full"></span>
-  </button>
-);
+const projects = [
+  {
+    name: "Rollix Portfolio",
+    description: "Portfólio moderno desenvolvido para apresentar identidade, serviços e trabalhos com uma experiência visual responsiva.",
+    language: "HTML",
+    repo: "https://github.com/LucasGabrielOM/rollix-portfolio",
+  },
+  {
+    name: "TAH Imóveis",
+    description: "Site imobiliário com foco em apresentação de imóveis, navegação clara e geração de oportunidades comerciais.",
+    language: "HTML",
+    repo: "https://github.com/LucasGabrielOM/tah-imoveis",
+  },
+  {
+    name: "Automação PNCP",
+    description: "Sistema em Python para coleta, tratamento e análise de contratos públicos usando Pandas, API REST e visualizações.",
+    language: "Python",
+    repo: "https://github.com/LucasGabrielOM/sistema-automacao-pncp-python",
+  },
+  {
+    name: "Meu Portfólio",
+    description: "Portfólio full-stack em React com painel administrativo, projetos, certificados e integração com Supabase.",
+    language: "JavaScript",
+    repo: "https://github.com/LucasGabrielOM/Meu-portfolio",
+  },
+  {
+    name: "Agência Nexa",
+    description: "Website institucional para uma agência de marketing digital, com foco em branding, serviços e presença online.",
+    language: "HTML",
+    repo: "https://github.com/LucasGabrielOM/nexa-agency",
+    demo: "https://lucasgabrielom.github.io/nexa-agency/",
+  },
+  {
+    name: "Burger House",
+    description: "Landing page para restaurante com cardápio, carrinho e envio de pedidos pelo WhatsApp.",
+    language: "CSS",
+    repo: "https://github.com/LucasGabrielOM/burgerhouse",
+    demo: "https://lucasgabrielom.github.io/burgerhouse/",
+  },
+  {
+    name: "Meu Portfólio 2",
+    description: "Uma das versões do meu portfólio pessoal, criada para experimentar novas interfaces e interações.",
+    language: "JavaScript",
+    repo: "https://github.com/LucasGabrielOM/Meu-portfolio2",
+  },
+  {
+    name: "Portfolio",
+    description: "Projeto de estudo e evolução contínua da minha presença profissional na web.",
+    language: "Web",
+    repo: "https://github.com/LucasGabrielOM/portfolio",
+  },
+  {
+    name: "Trabalho Estácio SA",
+    description: "Projeto acadêmico responsivo desenvolvido para aplicar fundamentos de desenvolvimento web.",
+    language: "CSS",
+    repo: "https://github.com/LucasGabrielOM/trabalho-estacio-Sa",
+    demo: "https://lucasgabrielom.github.io/trabalho-estacio-Sa/",
+  },
+  {
+    name: "Academia Flex",
+    description: "Aplicação para academia desenvolvida com TypeScript, componentes reutilizáveis e interface responsiva.",
+    language: "TypeScript",
+    repo: "https://github.com/LucasGabrielOM/Academia_Flex_Projeto",
+  },
+  {
+    name: "Trabalho Avaliativo Main",
+    description: "Projeto acadêmico de desenvolvimento web voltado à prática de estrutura, estilo e interatividade.",
+    language: "HTML",
+    repo: "https://github.com/LucasGabrielOM/Trabalho-avaliativo-main",
+  },
+  {
+    name: "Trabalho Avaliativo",
+    description: "Exercício acadêmico criado durante minha formação em Análise e Desenvolvimento de Sistemas.",
+    language: "Web",
+    repo: "https://github.com/LucasGabrielOM/Trabalho-avaliativo",
+  },
+  {
+    name: "Loja Brechó",
+    description: "Site de loja de brechó com catálogo visual e uma experiência simples para descoberta de produtos.",
+    language: "HTML",
+    repo: "https://github.com/LucasGabrielOM/SITE-LOJA-BRECHO",
+    demo: "https://lucasgabrielom.github.io/SITE-LOJA-BRECHO/",
+  },
+];
 
-function TabPanel({ children, value, index, ...other }) {
+const skills = [
+  "HTML5", "CSS3", "JavaScript", "TypeScript", "React", "Vite",
+  "Tailwind CSS", "Bootstrap", "Material UI", "Node.js", "Python",
+  "Pandas", "APIs REST", "Supabase", "Firebase", "Git", "GitHub",
+  "Vercel", "Design responsivo", "Automação",
+];
+
+const languageColors = {
+  JavaScript: "bg-yellow-400",
+  TypeScript: "bg-blue-400",
+  Python: "bg-emerald-400",
+  HTML: "bg-orange-400",
+  CSS: "bg-purple-400",
+  Web: "bg-slate-400",
+};
+
+function ProjectCard({ project }) {
+  const image = `https://opengraph.githubassets.com/portfolio/${project.repo.replace("https://github.com/", "")}`;
+
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: { xs: 1, sm: 3 } }}>
-          <Typography component="div">{children}</Typography>
-        </Box>
-      )}
-    </div>
+    <article className="group overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 transition hover:-translate-y-1 hover:border-violet-400/40 hover:shadow-2xl hover:shadow-violet-950/40">
+      <div className="aspect-[16/8] overflow-hidden bg-slate-950">
+        <img
+          src={image}
+          alt={`Prévia do projeto ${project.name}`}
+          loading="lazy"
+          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+        />
+      </div>
+      <div className="p-5">
+        <div className="mb-3 flex items-center justify-between gap-3">
+          <h3 className="text-xl font-semibold text-white">{project.name}</h3>
+          <span className="flex shrink-0 items-center gap-2 text-xs text-slate-300">
+            <span className={`h-2 w-2 rounded-full ${languageColors[project.language] || languageColors.Web}`} />
+            {project.language}
+          </span>
+        </div>
+        <p className="min-h-[4.5rem] text-sm leading-6 text-slate-400">{project.description}</p>
+        <div className="mt-5 flex gap-4 text-sm font-medium">
+          {project.demo && (
+            <a className="flex items-center gap-2 text-violet-300 hover:text-white" href={project.demo} target="_blank" rel="noreferrer">
+              Ver online <ExternalLink className="h-4 w-4" />
+            </a>
+          )}
+          <a className="flex items-center gap-2 text-slate-300 hover:text-white" href={project.repo} target="_blank" rel="noreferrer">
+            Código <Github className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </article>
   );
 }
 
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
+ProjectCard.propTypes = {
+  project: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    language: PropTypes.string.isRequired,
+    repo: PropTypes.string.isRequired,
+    demo: PropTypes.string,
+  }).isRequired,
 };
 
-function a11yProps(index) {
-  return {
-    id: `full-width-tab-${index}`,
-    "aria-controls": `full-width-tabpanel-${index}`,
-  };
-}
-
-// techStacks permanece igual
-const techStacks = [
-  { icon: "html.svg", language: "HTML" },
-  { icon: "css.svg", language: "CSS" },
-  { icon: "javascript.svg", language: "JavaScript" },
-  { icon: "tailwind.svg", language: "Tailwind CSS" },
-  { icon: "reactjs.svg", language: "ReactJS" },
-  { icon: "vite.svg", language: "Vite" },
-  { icon: "nodejs.svg", language: "Node JS" },
-  { icon: "bootstrap.svg", language: "Bootstrap" },
-  { icon: "firebase.svg", language: "Firebase" },
-  { icon: "MUI.svg", language: "Material UI" },
-  { icon: "vercel.svg", language: "Vercel" },
-  { icon: "SweetAlert.svg", language: "SweetAlert2" },
-];
-
-export default function FullWidthTabs() {
-  const theme = useTheme();
-  const [value, setValue] = useState(0);
-  const [projects, setProjects] = useState([]);
-  const [certificates, setCertificates] = useState([]);
-  const [showAllProjects, setShowAllProjects] = useState(false);
-  const [showAllCertificates, setShowAllCertificates] = useState(false);
-  const isMobile = window.innerWidth < 768;
-  const initialItems = isMobile ? 4 : 6;
-
-  useEffect(() => {
-    AOS.init({
-      once: false,
-    });
-  }, []);
-
-  const fetchData = useCallback(async () => {
-    try {
-      // Buscando dados do Supabase em paralelo
-      const [projectsResponse, certificatesResponse] = await Promise.all([
-        supabase.from("projects").select("*").order('id', { ascending: false }),
-        supabase.from("certificates").select("*").order('id', { ascending: false }), 
-      ]);
-
-      // Tratamento de erros para cada requisição
-      if (projectsResponse.error) throw projectsResponse.error;
-      if (certificatesResponse.error) throw certificatesResponse.error;
-
-      // Supabase retorna os dados na propriedade 'data'
-      const projectData = projectsResponse.data || [];
-      const certificateData = certificatesResponse.data || [];
-
-      setProjects(projectData);
-      setCertificates(certificateData);
-
-      // Armazenar no localStorage (funcionalidade mantida)
-      localStorage.setItem("projects", JSON.stringify(projectData));
-      localStorage.setItem("certificates", JSON.stringify(certificateData));
-    } catch (error) {
-      console.error("Erro ao buscar dados do Supabase:", error.message);
-    }
-  }, []);
-
-  useEffect(() => {
-    // Tentar buscar do localStorage primeiro para carregamento mais rápido
-    const cachedProjects = localStorage.getItem('projects');
-    const cachedCertificates = localStorage.getItem('certificates');
-
-    if (cachedProjects && cachedCertificates) {
-        setProjects(JSON.parse(cachedProjects));
-        setCertificates(JSON.parse(cachedCertificates));
-    }
-    
-    fetchData(); // Ainda chama fetchData para sincronizar com dados mais recentes
-  }, [fetchData]);
-
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
-  };
-
-  const toggleShowMore = useCallback((type) => {
-    if (type === 'projects') {
-      setShowAllProjects(prev => !prev);
-    } else {
-      setShowAllCertificates(prev => !prev);
-    }
-  }, []);
-
-  const displayedProjects = showAllProjects ? projects : projects.slice(0, initialItems);
-  const displayedCertificates = showAllCertificates ? certificates : certificates.slice(0, initialItems);
+export default function Portfolio() {
+  const [filter, setFilter] = useState("Todos");
+  const filters = ["Todos", ...new Set(projects.map((project) => project.language))];
+  const visibleProjects = useMemo(
+    () => filter === "Todos" ? projects : projects.filter((project) => project.language === filter),
+    [filter],
+  );
 
   return (
-    <div className="md:px-[10%] px-[5%] w-full sm:mt-0 mt-[3rem] bg-[#030014] overflow-hidden" id="Portfolio">
-      {/* Seção do cabeçalho */}
-      <div className="text-center pb-10" data-aos="fade-up" data-aos-duration="1000">
-        <h2 className="inline-block text-3xl md:text-5xl font-bold text-center mx-auto text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
-          <span style={{
-            color: '#6366f1',
-            backgroundImage: 'linear-gradient(45deg, #6366f1 10%, #a855f7 93%)',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
-          }}>
-             Portfólio
-          </span>
-        </h2>
-        <p className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2">
-          Explore minha jornada através de projetos, certificações e expertise técnica. 
-          Cada seção representa um marco no meu caminho contínuo de aprendizado.
-        </p>
+    <section className="w-full overflow-hidden bg-[#030014] px-[5%] py-20 md:px-[10%]" id="Projetos">
+      <div className="mx-auto max-w-7xl">
+        <div className="mb-10 text-center">
+          <div className="mb-3 flex items-center justify-center gap-2 text-violet-300">
+            <Code2 className="h-5 w-5" />
+            <span className="text-sm font-semibold uppercase tracking-[0.2em]">Trabalhos recentes</span>
+          </div>
+          <h2 className="text-4xl font-bold text-white md:text-5xl">Todos os meus projetos</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-slate-400">
+            Projetos de desenvolvimento web, aplicações acadêmicas e automações publicados no meu GitHub.
+          </p>
+        </div>
+
+        <div className="mb-8 flex flex-wrap justify-center gap-2" aria-label="Filtrar projetos">
+          {filters.map((item) => (
+            <button
+              key={item}
+              type="button"
+              onClick={() => setFilter(item)}
+              className={`rounded-full border px-4 py-2 text-sm transition ${
+                filter === item
+                  ? "border-violet-400 bg-violet-500/20 text-white"
+                  : "border-white/10 bg-white/5 text-slate-400 hover:border-white/20 hover:text-white"
+              }`}
+            >
+              {item}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {visibleProjects.map((project) => <ProjectCard key={project.repo} project={project} />)}
+        </div>
+
+        <div className="mt-20 rounded-3xl border border-white/10 bg-gradient-to-br from-violet-500/10 to-blue-500/5 p-6 md:p-10">
+          <div className="mb-8 flex items-center gap-3">
+            <Layers3 className="h-7 w-7 text-violet-300" />
+            <div>
+              <h3 className="text-2xl font-bold text-white">Skills e tecnologias</h3>
+              <p className="text-sm text-slate-400">Ferramentas que uso para transformar ideias em produtos.</p>
+            </div>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            {skills.map((skill) => (
+              <span key={skill} className="rounded-xl border border-white/10 bg-black/20 px-4 py-3 text-sm font-medium text-slate-200 transition hover:border-violet-400/40 hover:bg-violet-500/10">
+                {skill}
+              </span>
+            ))}
+          </div>
+        </div>
       </div>
-
-      <Box sx={{ width: "100%" }}>
-        {/* Seção AppBar e Tabs */}
-        <AppBar
-          position="static"
-          elevation={0}
-          sx={{
-            bgcolor: "transparent",
-            border: "1px solid rgba(255, 255, 255, 0.1)",
-            borderRadius: "20px",
-            position: "relative",
-            overflow: "hidden",
-            "&::before": {
-              content: '""',
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              background: "linear-gradient(180deg, rgba(139, 92, 246, 0.03) 0%, rgba(59, 130, 246, 0.03) 100%)",
-              backdropFilter: "blur(10px)",
-              zIndex: 0,
-            },
-          }}
-          className="md:px-4"
-        >
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="secondary"
-            indicatorColor="secondary"
-            variant="fullWidth"
-            sx={{
-              minHeight: "70px",
-              "& .MuiTab-root": {
-                fontSize: { xs: "0.9rem", md: "1rem" },
-                fontWeight: "600",
-                color: "#94a3b8",
-                textTransform: "none",
-                transition: "all 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
-                padding: "20px 0",
-                zIndex: 1,
-                margin: "8px",
-                borderRadius: "12px",
-                "&:hover": {
-                  color: "#ffffff",
-                  backgroundColor: "rgba(139, 92, 246, 0.1)",
-                  transform: "translateY(-2px)",
-                  "& .lucide": {
-                    transform: "scale(1.1) rotate(5deg)",
-                  },
-                },
-                "&.Mui-selected": {
-                  color: "#fff",
-                  background: "linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2))",
-                  boxShadow: "0 4px 15px -3px rgba(139, 92, 246, 0.2)",
-                  "& .lucide": {
-                    color: "#a78bfa",
-                  },
-                },
-              },
-              "& .MuiTabs-indicator": {
-                height: 0,
-              },
-              "& .MuiTabs-flexContainer": {
-                gap: "8px",
-              },
-            }}
-          >
-            <Tab
-              icon={<Code className="mb-2 w-5 h-5 transition-all duration-300" />}
-              label="Projetos"
-              {...a11yProps(0)}
-            />
-            <Tab
-              icon={<Award className="mb-2 w-5 h-5 transition-all duration-300" />}
-              label="Certificados"
-              {...a11yProps(1)}
-            />
-            <Tab
-              icon={<Boxes className="mb-2 w-5 h-5 transition-all duration-300" />}
-              label="Tecnologias"
-              {...a11yProps(2)}
-            />
-          </Tabs>
-        </AppBar>
-
-        <SwipeableViews
-          axis={theme.direction === "rtl" ? "x-reverse" : "x"}
-          index={value}
-          onChangeIndex={setValue}
-        >
-          <TabPanel value={value} index={0} dir={theme.direction}>
-            <div className="container mx-auto flex justify-center items-center overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 2xl:grid-cols-3 gap-5">
-                {displayedProjects.map((project, index) => (
-                  <div
-                    key={project.id || index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
-                  >
-                    <CardProject
-                      Img={project.Img}
-                      Title={project.Title}
-                      Description={project.Description}
-                      Link={project.Link}
-                      id={project.id}
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-            {projects.length > initialItems && (
-              <div className="mt-6 w-full flex justify-start">
-                <ToggleButton
-                  onClick={() => toggleShowMore('projects')}
-                  isShowingMore={showAllProjects}
-                />
-              </div>
-            )}
-          </TabPanel>
-
-          <TabPanel value={value} index={1} dir={theme.direction}>
-            <div className="container mx-auto flex justify-center items-center overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-3 md:gap-5 gap-4">
-                {displayedCertificates.map((certificate, index) => (
-                  <div
-                    key={certificate.id || index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
-                  >
-                    <Certificate ImgSertif={certificate.Img} />
-                  </div>
-                ))}
-              </div>
-            </div>
-            {certificates.length > initialItems && (
-              <div className="mt-6 w-full flex justify-start">
-                <ToggleButton
-                  onClick={() => toggleShowMore('certificates')}
-                  isShowingMore={showAllCertificates}
-                />
-              </div>
-            )}
-          </TabPanel>
-
-          <TabPanel value={value} index={2} dir={theme.direction}>
-            <div className="container mx-auto flex justify-center items-center overflow-hidden pb-[5%]">
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 lg:gap-8 gap-5">
-                {techStacks.map((stack, index) => (
-                  <div
-                    key={index}
-                    data-aos={index % 3 === 0 ? "fade-up-right" : index % 3 === 1 ? "fade-up" : "fade-up-left"}
-                    data-aos-duration={index % 3 === 0 ? "1000" : index % 3 === 1 ? "1200" : "1000"}
-                  >
-                    <TechStackIcon TechStackIcon={stack.icon} Language={stack.language} />
-                  </div>
-                ))}
-              </div>
-            </div>
-          </TabPanel>
-        </SwipeableViews>
-      </Box>
-    </div>
+    </section>
   );
 }

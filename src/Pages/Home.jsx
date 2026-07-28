@@ -81,7 +81,7 @@ const PAUSE_DURATION = 2000;
 
 const WORDS = ["Estudante de Tecnologia", "Profissional em constante desenvolvimento"];
 
-const TECH_STACK = ["React", "Phyton", "Node.js", "JavaScript"];
+const TECH_STACK = ["React", "Python", "TypeScript", "Node.js", "Supabase"];
 
 const SOCIAL_LINKS = [
   { icon: Github, link: "https://github.com/LucasGabrielOM", label: "Perfil GitHub" },
@@ -184,7 +184,7 @@ const Home = () => {
                   </div>
 
                   <div className="flex flex-row gap-3 w-full justify-start" data-aos="fade-up" data-aos-delay="1400">
-                   <CTAButton href="#portfolio" text="Projetos" icon={ExternalLink} />
+                   <CTAButton href="#Projetos" text="Projetos" icon={ExternalLink} />
                     <CTAButton href="#contato" text="Contato" icon={Mail} />
                   </div>
 
