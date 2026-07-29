@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
+const NAV_ITEMS = [
+    { href: "#Home", label: "Início" },
+    { href: "#sobre", label: "Sobre" },
+    { href: "#Projetos", label: "Projetos" },
+    { href: "#contato", label: "Contato" },
+];
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState("Home");
     
-    const navItems = [
-        { href: "#Home", label: "Início" },
-        { href: "#sobre", label: "Sobre" },
-        { href: "#Projetos", label: "Projetos" },
-        { href: "#contato", label: "Contato" },
-    ];
-
-
-
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);
-            const sections = navItems.map(item => {
+            const sections = NAV_ITEMS.map(item => {
                 const section = document.querySelector(item.href);
                 if (section) {
                     return {
@@ -93,7 +91,7 @@ const Navbar = () => {
                     {/* Desktop Navigation */}
                     <div className="hidden md:block">
                         <div className="ml-8 flex items-center space-x-8">
-                            {navItems.map((item) => (
+                            {NAV_ITEMS.map((item) => (
                                 <a
                                     key={item.label}
                                     href={item.href}
@@ -148,7 +146,7 @@ const Navbar = () => {
                 }`}
             >
                 <div className="px-4 py-6 space-y-4">
-                    {navItems.map((item, index) => (
+                    {NAV_ITEMS.map((item, index) => (
                         <a
                             key={item.label}
                             href={item.href}

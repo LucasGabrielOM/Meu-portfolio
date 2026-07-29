@@ -26,7 +26,7 @@ const Header = memo(() => (
 const ProfileImage = memo(() => (
   <div className="flex justify-center items-center p-6">
     <img
-      src="/profile.jpg"
+      src={`${import.meta.env.BASE_URL}profile.jpg`}
       alt="Lucas Gabriel"
       className="w-48 h-48 rounded-full object-cover border-4 border-purple-500"
     />

@@ -1,42 +1,37 @@
 import React, { useEffect, useRef } from "react"
 
+const INITIAL_POSITIONS = [
+	{ x: -4, y: 0 },
+	{ x: -4, y: 0 },
+	{ x: 20, y: -8 },
+	{ x: 20, y: -8 },
+]
+
 const AnimatedBackground = () => {
 	const blobRefs = useRef([])
-	const initialPositions = [
-		{ x: -4, y: 0 },
-		{ x: -4, y: 0 },
-		{ x: 20, y: -8 },
-		{ x: 20, y: -8 },
-	]
 
 	useEffect(() => {
-		let currentScroll = 0
 		let requestId
 
 		const handleScroll = () => {
-			const newScroll = window.pageYOffset
-			const scrollDelta = newScroll - currentScroll
-			currentScroll = newScroll
+			cancelAnimationFrame(requestId)
+			requestId = requestAnimationFrame(() => {
+				const newScroll = window.pageYOffset
 
-			blobRefs.current.forEach((blob, index) => {
-				const initialPos = initialPositions[index]
+				blobRefs.current.forEach((blob, index) => {
+					if (!blob) return
+					const initialPos = INITIAL_POSITIONS[index]
+					const xOffset = Math.sin(newScroll / 100 + index * 0.5) * 340
+					const yOffset = Math.cos(newScroll / 100 + index * 0.5) * 40
 
-				// Calculating movement in both X and Y direction
-				const xOffset = Math.sin(newScroll / 100 + index * 0.5) * 340 // Horizontal movement
-				const yOffset = Math.cos(newScroll / 100 + index * 0.5) * 40 // Vertical movement
-
-				const x = initialPos.x + xOffset
-				const y = initialPos.y + yOffset
-
-				// Apply transformation with smooth transition
-				blob.style.transform = `translate(${x}px, ${y}px)`
-				blob.style.transition = "transform 1.4s ease-out"
+					blob.style.transform = `translate(${initialPos.x + xOffset}px, ${initialPos.y + yOffset}px)`
+					blob.style.transition = "transform 1.4s ease-out"
+				})
 			})
-
-			requestId = requestAnimationFrame(handleScroll)
 		}
 
 		window.addEventListener("scroll", handleScroll)
+		handleScroll()
 		return () => {
 			window.removeEventListener("scroll", handleScroll)
 			cancelAnimationFrame(requestId)

@@ -1,5 +1,5 @@
 import React, { useEffect, memo, useMemo } from "react"
-import { FileText, Code, Award, Globe, ArrowUpRight, Sparkles, UserCheck } from "lucide-react"
+import { FileText, Code, Award, Globe, ArrowUpRight, Sparkles } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
@@ -50,7 +50,7 @@ const ProfileImage = memo(() => (
           <div className="absolute inset-0 bg-gradient-to-t from-purple-500/20 via-transparent to-blue-500/20 z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden sm:block" />
           
           <img
-            src="/profile.jpg"
+            src={`${import.meta.env.BASE_URL}profile.jpg`}
             alt="Foto de Lucas Gabriel"
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:rotate-2"
             loading="lazy"
@@ -115,7 +115,6 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
 const AboutPage = () => {
   // Cálculos memoizados
   const { totalProjects, totalCertificates, YearExperience } = useMemo(() => {
-    const storedProjects = JSON.parse(localStorage.getItem("projects") || "[]");
     const storedCertificates = JSON.parse(localStorage.getItem("certificates") || "[]");
     
     const startDate = new Date("2025-02-06");
@@ -124,7 +123,7 @@ const AboutPage = () => {
       (today < new Date(today.getFullYear(), startDate.getMonth(), startDate.getDate()) ? 1 : 0);
 
     return {
-      totalProjects: storedProjects.length,
+      totalProjects: 6,
       totalCertificates: storedCertificates.length,
       YearExperience: experience
     };
@@ -239,7 +238,7 @@ const AboutPage = () => {
               </div>
               
               <blockquote className="text-gray-300 text-center lg:text-left italic font-medium text-sm relative z-10 pl-6">
-                "Utilizando IA como ferramenta profissional, não como substituto."
+                “Utilizando IA como ferramenta profissional, não como substituto.”
               </blockquote>
             </div>
 
@@ -259,7 +258,7 @@ const AboutPage = () => {
                 </button>
               </a>
 
-              <a href="#Portfolio" className="w-full lg:w-auto">
+              <a href="#Projetos" className="w-full lg:w-auto">
                 <button 
                   data-aos="fade-up"
                   data-aos-duration="1000"
@@ -274,7 +273,7 @@ const AboutPage = () => {
           <ProfileImage />
         </div>
 
-        <a href="#Portfolio">
+        <a href="#Projetos">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 cursor-pointer">
             {statsData.map((stat) => (
               <StatCard key={stat.label} {...stat} />
@@ -283,7 +282,7 @@ const AboutPage = () => {
         </a>
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-20px); }

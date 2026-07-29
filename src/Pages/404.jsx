@@ -7,8 +7,7 @@ export default function NotFoundPage() {
   };
 
   const handleGoHome = () => {
-    // Em uma aplicação real, você usaria a navegação do seu roteador
-    window.location.href = '/';
+    window.location.href = import.meta.env.BASE_URL;
   };
 
   return (
