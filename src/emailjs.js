@@ -1,10 +1,11 @@
 // src/emailjs.js
 import emailjs from '@emailjs/browser';
+import Swal from 'sweetalert2';
 
 export const sendEmail = async ({ name, email, message }) => {
   try {
     const result = await emailjs.send(
-      'ervice_idf27jh',    // substitua pelo seu Service ID
+      'service_idf27jh',    // substitua pelo seu Service ID
       'template_2qmbwkk',   // substitua pelo seu Template ID
       {
         from_name: name,

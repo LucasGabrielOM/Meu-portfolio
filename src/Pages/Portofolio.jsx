@@ -1,89 +1,52 @@
 import { useMemo, useState } from "react";
 import PropTypes from "prop-types";
-import { Code2, Github, Layers3, ExternalLink } from "lucide-react";
+import { Code2, Github, Layers3, ExternalLink, LockKeyhole } from "lucide-react";
 
 const projects = [
   {
-    name: "Rollix Portfolio",
-    description: "Portfólio moderno desenvolvido para apresentar identidade, serviços e trabalhos com uma experiência visual responsiva.",
-    language: "HTML",
-    repo: "https://github.com/LucasGabrielOM/rollix-portfolio",
+    name: "CorteCerto Açougue Fort",
+    description: "Sistema web para controle de quebra de carnes, análise mensal de perdas e escala de folgas em Kanban.",
+    language: "TypeScript",
+    repo: "https://github.com/LucasGabrielOM/cortecerto-acougue-fort",
+    image: "projects/cortecerto.jpg",
+  },
+  {
+    name: "B2B Technographics Prospector",
+    description: "Plataforma de prospecção B2B com FastAPI, n8n e PostgreSQL para descobrir, enriquecer e priorizar leads.",
+    language: "Python",
+    repo: "https://github.com/LucasGabrielOM/b2b-technographics-prospector",
+    image: "projects/b2b-technographics.jpg",
+    private: true,
+  },
+  {
+    name: "Smack Chicken",
+    description: "Ecossistema para restaurante com site, caixa, fila da cozinha e dashboard operacional integrados.",
+    language: "TypeScript",
+    repo: "https://github.com/LucasGabrielOM/smack-chicken",
+    image: "projects/smack-chicken.jpg",
+    private: true,
   },
   {
     name: "TAH Imóveis",
-    description: "Site imobiliário com foco em apresentação de imóveis, navegação clara e geração de oportunidades comerciais.",
+    description: "Site imobiliário responsivo com busca de imóveis, apresentação visual e geração de oportunidades comerciais.",
     language: "HTML",
     repo: "https://github.com/LucasGabrielOM/tah-imoveis",
+    image: "projects/tah-imoveis.jpg",
+  },
+  {
+    name: "Dashboard Finanças",
+    description: "Dashboard financeiro para acompanhar saldo, receitas, despesas, orçamento, transações e metas.",
+    language: "TypeScript",
+    repo: "https://github.com/LucasGabrielOM/dashboard-financas",
+    image: "projects/dashboard-financas.jpg",
+    private: true,
   },
   {
     name: "Automação PNCP",
-    description: "Sistema em Python para coleta, tratamento e análise de contratos públicos usando Pandas, API REST e visualizações.",
+    description: "Sistema Python para coleta, tratamento e análise de contratos públicos com Pandas, API REST e visualizações.",
     language: "Python",
     repo: "https://github.com/LucasGabrielOM/sistema-automacao-pncp-python",
-  },
-  {
-    name: "Meu Portfólio",
-    description: "Portfólio full-stack em React com painel administrativo, projetos, certificados e integração com Supabase.",
-    language: "JavaScript",
-    repo: "https://github.com/LucasGabrielOM/Meu-portfolio",
-  },
-  {
-    name: "Agência Nexa",
-    description: "Website institucional para uma agência de marketing digital, com foco em branding, serviços e presença online.",
-    language: "HTML",
-    repo: "https://github.com/LucasGabrielOM/nexa-agency",
-    demo: "https://lucasgabrielom.github.io/nexa-agency/",
-  },
-  {
-    name: "Burger House",
-    description: "Landing page para restaurante com cardápio, carrinho e envio de pedidos pelo WhatsApp.",
-    language: "CSS",
-    repo: "https://github.com/LucasGabrielOM/burgerhouse",
-    demo: "https://lucasgabrielom.github.io/burgerhouse/",
-  },
-  {
-    name: "Meu Portfólio 2",
-    description: "Uma das versões do meu portfólio pessoal, criada para experimentar novas interfaces e interações.",
-    language: "JavaScript",
-    repo: "https://github.com/LucasGabrielOM/Meu-portfolio2",
-  },
-  {
-    name: "Portfolio",
-    description: "Projeto de estudo e evolução contínua da minha presença profissional na web.",
-    language: "Web",
-    repo: "https://github.com/LucasGabrielOM/portfolio",
-  },
-  {
-    name: "Trabalho Estácio SA",
-    description: "Projeto acadêmico responsivo desenvolvido para aplicar fundamentos de desenvolvimento web.",
-    language: "CSS",
-    repo: "https://github.com/LucasGabrielOM/trabalho-estacio-Sa",
-    demo: "https://lucasgabrielom.github.io/trabalho-estacio-Sa/",
-  },
-  {
-    name: "Academia Flex",
-    description: "Aplicação para academia desenvolvida com TypeScript, componentes reutilizáveis e interface responsiva.",
-    language: "TypeScript",
-    repo: "https://github.com/LucasGabrielOM/Academia_Flex_Projeto",
-  },
-  {
-    name: "Trabalho Avaliativo Main",
-    description: "Projeto acadêmico de desenvolvimento web voltado à prática de estrutura, estilo e interatividade.",
-    language: "HTML",
-    repo: "https://github.com/LucasGabrielOM/Trabalho-avaliativo-main",
-  },
-  {
-    name: "Trabalho Avaliativo",
-    description: "Exercício acadêmico criado durante minha formação em Análise e Desenvolvimento de Sistemas.",
-    language: "Web",
-    repo: "https://github.com/LucasGabrielOM/Trabalho-avaliativo",
-  },
-  {
-    name: "Loja Brechó",
-    description: "Site de loja de brechó com catálogo visual e uma experiência simples para descoberta de produtos.",
-    language: "HTML",
-    repo: "https://github.com/LucasGabrielOM/SITE-LOJA-BRECHO",
-    demo: "https://lucasgabrielom.github.io/SITE-LOJA-BRECHO/",
+    image: "projects/automacao-pncp.jpg",
   },
 ];
 
@@ -104,11 +67,11 @@ const languageColors = {
 };
 
 function ProjectCard({ project }) {
-  const image = `https://opengraph.githubassets.com/portfolio/${project.repo.replace("https://github.com/", "")}`;
+  const image = `${import.meta.env.BASE_URL}${project.image}`;
 
   return (
     <article className="group overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 transition hover:-translate-y-1 hover:border-violet-400/40 hover:shadow-2xl hover:shadow-violet-950/40">
-      <div className="aspect-[16/8] overflow-hidden bg-slate-950">
+      <div className="aspect-video overflow-hidden bg-slate-950">
         <img
           src={image}
           alt={`Prévia do projeto ${project.name}`}
@@ -131,9 +94,15 @@ function ProjectCard({ project }) {
               Ver online <ExternalLink className="h-4 w-4" />
             </a>
           )}
-          <a className="flex items-center gap-2 text-slate-300 hover:text-white" href={project.repo} target="_blank" rel="noreferrer">
-            Código <Github className="h-4 w-4" />
-          </a>
+          {project.private ? (
+            <span className="flex items-center gap-2 text-slate-400" title="Código-fonte não disponível publicamente">
+              Repositório privado <LockKeyhole className="h-4 w-4" />
+            </span>
+          ) : (
+            <a className="flex items-center gap-2 text-slate-300 hover:text-white" href={project.repo} target="_blank" rel="noreferrer">
+              Código <Github className="h-4 w-4" />
+            </a>
+          )}
         </div>
       </div>
     </article>
@@ -146,6 +115,8 @@ ProjectCard.propTypes = {
     description: PropTypes.string.isRequired,
     language: PropTypes.string.isRequired,
     repo: PropTypes.string.isRequired,
+    image: PropTypes.string.isRequired,
+    private: PropTypes.bool,
     demo: PropTypes.string,
   }).isRequired,
 };
@@ -166,9 +137,9 @@ export default function Portfolio() {
             <Code2 className="h-5 w-5" />
             <span className="text-sm font-semibold uppercase tracking-[0.2em]">Trabalhos recentes</span>
           </div>
-          <h2 className="text-4xl font-bold text-white md:text-5xl">Todos os meus projetos</h2>
+          <h2 className="text-4xl font-bold text-white md:text-5xl">Projetos em destaque</h2>
           <p className="mx-auto mt-4 max-w-2xl text-slate-400">
-            Projetos de desenvolvimento web, aplicações acadêmicas e automações publicados no meu GitHub.
+            Uma seleção de produtos web, automações e plataformas de dados que desenvolvi.
           </p>
         </div>
 
