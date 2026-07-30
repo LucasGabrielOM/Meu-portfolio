@@ -48,10 +48,15 @@ const IconButton = ({ Icon }) => (
 const WelcomeScreen = ({ onLoadingComplete }) => {
   const [isLoading, setIsLoading] = useState(true);
 
+  const handleSkip = () => {
+    setIsLoading(false);
+    setTimeout(() => onLoadingComplete?.(), 400);
+  };
+
   useEffect(() => {
     AOS.init({
-      duration: 1000,
-      once: false,
+      duration: 800,
+      once: true,
       mirror: false,
     });
 
@@ -59,8 +64,8 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
       setIsLoading(false);
       setTimeout(() => {
         onLoadingComplete?.();
-      }, 1000);
-    }, 3400);
+      }, 500);
+    }, 1800);
     
     return () => clearTimeout(timer);
   }, [onLoadingComplete]);
@@ -101,6 +106,15 @@ const WelcomeScreen = ({ onLoadingComplete }) => {
           variants={containerVariants}
         >
           <BackgroundEffect />
+
+          {/* Botão Pular */}
+          <button
+            onClick={handleSkip}
+            className="absolute top-4 right-4 z-10 px-4 py-2 text-sm text-gray-400 hover:text-white border border-white/10 hover:border-white/30 rounded-full bg-black/30 backdrop-blur-sm transition-all duration-300"
+            aria-label="Pular introdução"
+          >
+            Pular →
+          </button>
           
           <div className="relative min-h-screen flex items-center justify-center px-4">
             <div className="w-full max-w-4xl mx-auto">

@@ -33,7 +33,7 @@ const MainTitle = memo(() => (
       <span className="relative inline-block mt-2">
         <span className="absolute -inset-2 bg-gradient-to-r from-[#6366f1] to-[#a855f7] blur-2xl opacity-20"></span>
         <span className="relative bg-gradient-to-r from-[#6366f1] to-[#a855f7] bg-clip-text text-transparent">
-          Full Stack & Automações
+          Full Stack &amp; Automações
         </span>
       </span>
     </h1>
@@ -154,7 +154,7 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Lucas Gabriel de Oliveira Moreira — Desenvolvedor Full Stack & Automações</title>
+        <title>Lucas Gabriel de Oliveira Moreira — Desenvolvedor Full Stack &amp; Automações</title>
         <meta name="description" content="Desenvolvedor Full Stack especializado em automações, integrações de sistemas, aplicações web e mobile com React, Node.js, Python e n8n." />
         <meta name="robots" content="index, follow" />
       </Helmet>
@@ -224,6 +224,8 @@ const Home = () => {
                     <img
                       src={`${import.meta.env.BASE_URL}Animation1.gif`}
                       alt="Animação Desenvolvedor"
+                      loading="lazy"
+                      fetchPriority="low"
                       className="w-full h-full object-contain"
                     />
                   </div>
