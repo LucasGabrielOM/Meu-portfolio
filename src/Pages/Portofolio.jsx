@@ -12,14 +12,14 @@ import { certificates } from "../data/certificates";
 const projects = [
   {
     name: "CorteCerto Açougue Fort",
-    description: "Sistema web para controle de quebra de carnes, análise mensal de perdas e escala de folgas em Kanban.",
+    description: "Sistema operacional para registrar quebras de carnes, analisar perdas mensais e organizar a escala da equipe em Kanban.",
     language: "TypeScript",
     repo: "https://github.com/LucasGabrielOM/cortecerto-acougue-fort",
     image: corteCertoCover,
   },
   {
     name: "B2B Technographics Prospector",
-    description: "Plataforma de prospecção B2B com FastAPI, n8n e PostgreSQL para descobrir, enriquecer e priorizar leads.",
+    description: "SaaS de prospecção B2B que descobre empresas, identifica tecnologias, enriquece contatos e prioriza oportunidades comerciais.",
     language: "Python",
     repo: "https://github.com/LucasGabrielOM/b2b-technographics-prospector",
     image: b2bTechnographicsCover,
@@ -27,7 +27,7 @@ const projects = [
   },
   {
     name: "Smack Chicken",
-    description: "Ecossistema para restaurante com site, caixa, fila da cozinha e dashboard operacional integrados.",
+    description: "Ecossistema integrado para restaurante com site, caixa, fila de cozinha, pedidos e dashboard de gestão em tempo real.",
     language: "TypeScript",
     repo: "https://github.com/LucasGabrielOM/smack-chicken",
     image: smackChickenCover,
@@ -35,14 +35,14 @@ const projects = [
   },
   {
     name: "TAH Imóveis",
-    description: "Site imobiliário responsivo com busca de imóveis, apresentação visual e geração de oportunidades comerciais.",
+    description: "Landing page imobiliária responsiva, rápida e orientada à conversão de visitantes em oportunidades de atendimento.",
     language: "HTML",
     repo: "https://github.com/LucasGabrielOM/tah-imoveis",
     image: tahImoveisCover,
   },
   {
     name: "Dashboard Finanças",
-    description: "Dashboard financeiro para acompanhar saldo, receitas, despesas, orçamento, transações e metas.",
+    description: "Painel financeiro interativo para acompanhar receitas, despesas, fluxo de caixa, orçamento, transações e metas.",
     language: "TypeScript",
     repo: "https://github.com/LucasGabrielOM/dashboard-financas",
     image: dashboardFinancasCover,
@@ -50,7 +50,7 @@ const projects = [
   },
   {
     name: "Automação PNCP",
-    description: "Sistema Python para coleta, tratamento e análise de contratos públicos com Pandas, API REST e visualizações.",
+    description: "Pipeline em Python que coleta oportunidades do PNCP, higieniza dados com Pandas e gera análises para apoiar decisões comerciais.",
     language: "Python",
     repo: "https://github.com/LucasGabrielOM/sistema-automacao-pncp-python",
     image: automacaoPncpCover,
@@ -58,10 +58,11 @@ const projects = [
 ];
 
 const skills = [
-  "HTML5", "CSS3", "JavaScript", "TypeScript", "React", "Vite",
-  "Tailwind CSS", "Bootstrap", "Material UI", "Node.js", "Python",
-  "Pandas", "APIs REST", "Supabase", "Firebase", "Git", "GitHub",
-  "Vercel", "Design responsivo", "Automação",
+  "Python", "JavaScript", "TypeScript", "SQL", "HTML5", "CSS3",
+  "React", "Vite", "Tailwind CSS", "Node.js", "React Native", "Expo",
+  "n8n", "APIs REST", "Webhooks", "FastAPI", "Flask", "Web Scraping",
+  "Pandas", "ETL", "Matplotlib", "openpyxl", "Firebase", "PostgreSQL",
+  "Bitrix24", "Salesforce", "Git", "GitHub", "Linux", "Nginx", "PM2", "Docker",
 ];
 
 const languageColors = {
@@ -144,7 +145,7 @@ export default function Portfolio() {
           </div>
           <h2 className="text-4xl font-bold text-white md:text-5xl">Projetos em destaque</h2>
           <p className="mx-auto mt-4 max-w-2xl text-slate-400">
-            Uma seleção de produtos web, automações e plataformas de dados que desenvolvi.
+            Produtos desenvolvidos para problemas reais de operação, vendas, finanças, atendimento e análise de dados.
           </p>
         </div>
 
@@ -174,7 +175,7 @@ export default function Portfolio() {
             <Award className="h-7 w-7 text-violet-300" />
             <div>
               <h3 className="text-2xl font-bold text-white">Certificados</h3>
-              <p className="text-sm text-slate-400">Formações que validam minhas habilidades técnicas.</p>
+              <p className="text-sm text-slate-400">Formações que complementam minha experiência prática e evolução técnica.</p>
             </div>
           </div>
 
@@ -221,7 +222,7 @@ export default function Portfolio() {
             <Layers3 className="h-7 w-7 text-violet-300" />
             <div>
               <h3 className="text-2xl font-bold text-white">Skills e tecnologias</h3>
-              <p className="text-sm text-slate-400">Ferramentas que uso para transformar ideias em produtos.</p>
+              <p className="text-sm text-slate-400">Ferramentas que uso para desenvolver, integrar, automatizar e colocar soluções em produção.</p>
             </div>
           </div>
           <div className="flex flex-wrap gap-3">
