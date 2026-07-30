@@ -2,6 +2,7 @@ import React, { useEffect, memo, useMemo } from "react"
 import { FileText, Code, Award, Globe, ArrowUpRight, Sparkles } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
+import { certificates } from "../data/certificates";
 
 // Componentes Memoizados
 const Header = memo(() => (
@@ -115,8 +116,6 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
 const AboutPage = () => {
   // Cálculos memoizados
   const { totalProjects, totalCertificates, YearExperience } = useMemo(() => {
-    const storedCertificates = JSON.parse(localStorage.getItem("certificates") || "[]");
-    
     const startDate = new Date("2025-02-06");
     const today = new Date();
     const experience = today.getFullYear() - startDate.getFullYear() -
@@ -124,7 +123,7 @@ const AboutPage = () => {
 
     return {
       totalProjects: 6,
-      totalCertificates: storedCertificates.length,
+      totalCertificates: certificates.length,
       YearExperience: experience
     };
   }, []);

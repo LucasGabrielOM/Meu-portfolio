@@ -1,12 +1,13 @@
 import { useMemo, useState } from "react";
 import PropTypes from "prop-types";
-import { Code2, Github, Layers3, ExternalLink, LockKeyhole } from "lucide-react";
+import { Award, CalendarDays, Code2, ExternalLink, Github, Layers3, LockKeyhole } from "lucide-react";
 import automacaoPncpCover from "../assets/projects/automacao-pncp.jpg";
 import b2bTechnographicsCover from "../assets/projects/b2b-technographics.jpg";
 import corteCertoCover from "../assets/projects/cortecerto.jpg";
 import dashboardFinancasCover from "../assets/projects/dashboard-financas.jpg";
 import smackChickenCover from "../assets/projects/smack-chicken.jpg";
 import tahImoveisCover from "../assets/projects/tah-imoveis.jpg";
+import { certificates } from "../data/certificates";
 
 const projects = [
   {
@@ -166,6 +167,53 @@ export default function Portfolio() {
 
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
           {visibleProjects.map((project) => <ProjectCard key={project.repo} project={project} />)}
+        </div>
+
+        <div className="mt-20" id="Certificados">
+          <div className="mb-8 flex items-center gap-3">
+            <Award className="h-7 w-7 text-violet-300" />
+            <div>
+              <h3 className="text-2xl font-bold text-white">Certificados</h3>
+              <p className="text-sm text-slate-400">Formações que validam minhas habilidades técnicas.</p>
+            </div>
+          </div>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            {certificates.map((certificate) => (
+              <a
+                key={certificate.id}
+                href={certificate.pdf}
+                target="_blank"
+                rel="noreferrer"
+                className="group overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 transition hover:-translate-y-1 hover:border-violet-400/40 hover:shadow-2xl hover:shadow-violet-950/40"
+              >
+                <div className="bg-white p-2">
+                  <img
+                    src={certificate.image}
+                    alt={`Certificado ${certificate.title} da ${certificate.issuer}`}
+                    loading="lazy"
+                    className="aspect-[4/3] w-full object-contain"
+                  />
+                </div>
+                <div className="p-5">
+                  <span className="text-xs font-semibold uppercase tracking-[0.18em] text-violet-300">
+                    Cisco Networking Academy
+                  </span>
+                  <h4 className="mt-2 text-xl font-semibold text-white">{certificate.title}</h4>
+                  <p className="mt-2 text-sm text-slate-400">{certificate.issuer}</p>
+                  <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm">
+                    <span className="flex items-center gap-2 text-slate-300">
+                      <CalendarDays className="h-4 w-4" />
+                      {certificate.completedAt}
+                    </span>
+                    <span className="flex items-center gap-2 font-medium text-violet-300 transition group-hover:text-white">
+                      Ver certificado <ExternalLink className="h-4 w-4" />
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
         </div>
 
         <div className="mt-20 rounded-3xl border border-white/10 bg-gradient-to-br from-violet-500/10 to-blue-500/5 p-6 md:p-10">
