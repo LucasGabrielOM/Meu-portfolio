@@ -244,7 +244,7 @@ const AboutPage = () => {
 
             <div className="flex flex-col lg:flex-row items-center lg:items-start gap-4 lg:gap-4 lg:px-0 w-full">
               <a 
-                href="https://drive.google.com/file/d/17aCpwoZzhKjqcSG7jho_a_T3BZ4zBYDB/view?usp=drive_link"
+                href={`${import.meta.env.BASE_URL}curriculo-lucas-gabriel.pdf`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full lg:w-auto"
