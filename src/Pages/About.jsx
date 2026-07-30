@@ -1,5 +1,5 @@
 import React, { useEffect, memo, useMemo } from "react"
-import { FileText, Code, Award, Globe, ArrowUpRight, Sparkles } from "lucide-react"
+import { FileText, Code, Award, BriefcaseBusiness, ArrowUpRight, Sparkles } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { certificates } from "../data/certificates";
@@ -22,11 +22,32 @@ const Header = memo(() => (
       data-aos-duration="800"
     >
       <Sparkles className="w-5 h-5 text-purple-400" />
-      Transformando ideias em experiências digitais
+      Software que conecta operação, dados e resultados
       <Sparkles className="w-5 h-5 text-purple-400" />
     </p>
   </div>
 ));
+
+const professionalExperience = [
+  {
+    role: "Desenvolvedor Full Stack",
+    company: "Humatech (Multinacional)",
+    period: "mar/2026 — atual",
+    summary: "Portal corporativo, microsserviço com Gemini para extração e validação de contratos e infraestrutura Linux com Nginx e PM2.",
+  },
+  {
+    role: "Desenvolvedor Full Stack",
+    company: "Iung Solutions",
+    period: "jan/2026 — atual",
+    summary: "Automações em n8n, integrações entre ERP, Bitrix24, Salesforce e WhatsApp Business, além de aplicações web e mobile.",
+  },
+  {
+    role: "Estagiário de Análise de Editais",
+    company: "Facilicita — Licitações Públicas",
+    period: "jan/2026 — jul/2026",
+    summary: "Robôs em Python para o PNCP, tratamento de dados com Pandas e automação de leads comerciais via API REST.",
+  },
+];
 
 const ProfileImage = memo(() => (
   <div className="flex justify-end items-center sm:p-12 sm:py-0 sm:pb-0 p-0 py-2 pb-2">
@@ -115,18 +136,11 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
 
 const AboutPage = () => {
   // Cálculos memoizados
-  const { totalProjects, totalCertificates, YearExperience } = useMemo(() => {
-    const startDate = new Date("2025-02-06");
-    const today = new Date();
-    const experience = today.getFullYear() - startDate.getFullYear() -
-      (today < new Date(today.getFullYear(), startDate.getMonth(), startDate.getDate()) ? 1 : 0);
-
-    return {
-      totalProjects: 6,
-      totalCertificates: certificates.length,
-      YearExperience: experience
-    };
-  }, []);
+  const { totalProjects, totalCertificates, technicalRoles } = useMemo(() => ({
+    totalProjects: 6,
+    totalCertificates: certificates.length,
+    technicalRoles: professionalExperience.length,
+  }), []);
 
   // Inicialização otimizada do AOS
   useEffect(() => {
@@ -171,14 +185,14 @@ const AboutPage = () => {
       animation: "fade-up",
     },
     {
-      icon: Globe,
+      icon: BriefcaseBusiness,
       color: "from-[#6366f1] to-[#a855f7]",
-      value: YearExperience,
-      label: "Anos de Experiência",
-      description: "Jornada de aprendizado contínuo",
+      value: technicalRoles,
+      label: "Atuações em Tecnologia",
+      description: "Full Stack, automação e dados",
       animation: "fade-left",
     },
-  ], [totalProjects, totalCertificates, YearExperience]);
+  ], [totalProjects, totalCertificates, technicalRoles]);
 
   return (
     <div
@@ -210,14 +224,22 @@ const AboutPage = () => {
               </span>
             </h2>
             
-            <p 
-              className="text-base sm:text-lg lg:text-xl text-gray-400 leading-relaxed text-justify pb-4 sm:pb-0"
+            <div
+              className="space-y-4 text-base sm:text-lg text-gray-400 leading-relaxed text-left"
               data-aos="fade-right"
               data-aos-duration="1500"
+              itemProp="description"
             >
-              Sou estudante de Análise e desenvolvimento de sistemas com foco em desenvolvimento Front-End. 
-              Foco em criar experiências digitais envolventes e sempre busco oferecer as melhores soluções em cada projeto que desenvolvo.
-            </p>
+              <p>
+                Sou Desenvolvedor Full Stack e estudante do 4º semestre de Análise e Desenvolvimento de Sistemas. Trabalho com React, Node.js, Python, n8n e APIs REST para construir aplicações, automações e integrações que resolvem problemas reais de operação.
+              </p>
+              <p>
+                Na Humatech e na Iung Solutions, desenvolvo portais corporativos, microsserviços com IA generativa, integrações entre ERPs, CRMs e WhatsApp Business, além de soluções web e mobile. Na Facilicita, automatizei a captação e a análise de editais públicos com Python, PNCP e Pandas.
+              </p>
+              <p className="text-sm sm:text-base text-gray-500">
+                Minha experiência anterior com estoque, documentos fiscais, logística e rotinas administrativas me deu visão prática dos processos que hoje transformo em software.
+              </p>
+            </div>
 
             {/* Seção de Citação */}
             <div 
@@ -237,7 +259,7 @@ const AboutPage = () => {
               </div>
               
               <blockquote className="text-gray-300 text-center lg:text-left italic font-medium text-sm relative z-10 pl-6">
-                “Utilizando IA como ferramenta profissional, não como substituto.”
+                “Transformo processos manuais e dados dispersos em soluções simples, integradas e prontas para gerar resultado.”
               </blockquote>
             </div>
 
@@ -253,7 +275,7 @@ const AboutPage = () => {
                   data-aos-duration="800"
                   className="w-full lg:w-auto sm:px-6 py-2 sm:py-3 rounded-lg bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white font-medium transition-all duration-300 hover:scale-105 flex items-center justify-center lg:justify-start gap-2 shadow-lg hover:shadow-xl"
                 >
-                  <FileText className="w-4 h-4 sm:w-5 sm:h-5" /> Baixar Currículo
+                  <FileText className="w-4 h-4 sm:w-5 sm:h-5" /> Ver currículo
                 </button>
               </a>
 
@@ -271,6 +293,43 @@ const AboutPage = () => {
 
           <ProfileImage />
         </div>
+
+        <section className="mt-16" aria-labelledby="experiencia-profissional">
+          <div className="mb-8 text-center">
+            <span className="text-sm font-semibold uppercase tracking-[0.2em] text-violet-300">
+              Experiência profissional
+            </span>
+            <h3 id="experiencia-profissional" className="mt-2 text-3xl font-bold text-white md:text-4xl">
+              Tecnologia aplicada a operações reais
+            </h3>
+            <p className="mx-auto mt-3 max-w-3xl text-sm leading-6 text-gray-400 sm:text-base">
+              Experiências em desenvolvimento, automação, dados e infraestrutura para tornar processos mais rápidos, conectados e confiáveis.
+            </p>
+          </div>
+
+          <div className="grid gap-5 lg:grid-cols-3">
+            {professionalExperience.map((experience, index) => (
+              <article
+                key={`${experience.company}-${experience.role}`}
+                className="rounded-2xl border border-white/10 bg-gray-900/50 p-6 text-left backdrop-blur-lg transition hover:-translate-y-1 hover:border-violet-400/40"
+                data-aos="fade-up"
+                data-aos-delay={index * 100}
+              >
+                <div className="mb-5 flex items-start justify-between gap-4">
+                  <div className="rounded-xl bg-violet-500/10 p-3 text-violet-300">
+                    <BriefcaseBusiness className="h-6 w-6" />
+                  </div>
+                  <span className="text-right text-xs font-medium uppercase tracking-wider text-gray-500">
+                    {experience.period}
+                  </span>
+                </div>
+                <h4 className="text-xl font-semibold text-white">{experience.role}</h4>
+                <p className="mt-1 text-sm font-medium text-violet-300">{experience.company}</p>
+                <p className="mt-4 text-sm leading-6 text-gray-400">{experience.summary}</p>
+              </article>
+            ))}
+          </div>
+        </section>
 
         <a href="#Projetos">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-16 cursor-pointer">

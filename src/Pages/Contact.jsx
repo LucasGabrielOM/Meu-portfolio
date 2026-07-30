@@ -1,197 +1,104 @@
-import React, { useState, useEffect } from "react";
-import { Share2, User, Mail, MessageSquare, Send } from "lucide-react";
-import SocialLinks from "../components/SocialLinks";
-import Swal from "sweetalert2";
+import { useEffect } from "react";
+import { ArrowUpRight, Github, Linkedin, MessageCircle, Phone } from "lucide-react";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import emailjs from "@emailjs/browser";
+
+const WHATSAPP_URL = "https://wa.me/5548996116327?text=Ol%C3%A1%20Lucas%2C%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20uma%20oportunidade.";
+
+const professionalLinks = [
+  {
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/lucas-gabriel-de-oliveira-moreira-400769350",
+    icon: Linkedin,
+  },
+  {
+    label: "GitHub",
+    href: "https://github.com/LucasGabrielOM",
+    icon: Github,
+  },
+];
 
 const ContactPage = () => {
-
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
   useEffect(() => {
-    AOS.init({
-      once: false,
-    });
+    AOS.init({ once: true });
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    Swal.fire({
-      title: "Enviando mensagem...",
-      html: "Aguarde enquanto enviamos sua mensagem",
-      allowOutsideClick: false,
-      didOpen: () => {
-        Swal.showLoading();
-      },
-    });
-
-    try {
-      await emailjs.send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-      );
-
-      Swal.fire({
-        title: "Sucesso!",
-        text: "Mensagem enviada com sucesso!",
-        icon: "success",
-        confirmButtonColor: "#6366f1",
-        timer: 2000,
-        timerProgressBar: true,
-      });
-
-      setFormData({
-        name: "",
-        email: "",
-        message: "",
-      });
-
-    } catch (error) {
-
-      console.error("ERRO EMAILJS:", error);
-
-      Swal.fire({
-        title: "Erro!",
-        text: "Erro ao enviar mensagem.",
-        icon: "error",
-        confirmButtonColor: "#6366f1",
-      });
-
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
   return (
-    <div className="px-[5%] sm:px-[5%] lg:px-[10%]">
-      <div className="text-center lg:mt-[5%] mt-10 mb-2 sm:px-0 px-[5%]">
-        <h2
-          data-aos="fade-down"
-          data-aos-duration="1000"
-          className="inline-block text-3xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]"
+    <section
+      id="contato"
+      className="scroll-mt-20 px-[5%] py-20 sm:px-[5%] lg:px-[10%]"
+      aria-labelledby="titulo-contato"
+    >
+      <div className="mx-auto max-w-5xl">
+        <div className="text-center" data-aos="fade-up">
+          <span className="text-sm font-semibold uppercase tracking-[0.2em] text-violet-300">
+            Contato direto
+          </span>
+          <h2
+            id="titulo-contato"
+            className="mt-3 text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7] md:text-5xl"
+          >
+            Vamos construir algo relevante?
+          </h2>
+          <p className="mx-auto mt-4 max-w-2xl text-sm leading-6 text-slate-400 md:text-base">
+            Estou aberto a oportunidades em desenvolvimento Full Stack, automação e integração de sistemas. Fale comigo pelo WhatsApp para conversarmos sobre o seu time e os desafios da vaga.
+          </p>
+        </div>
+
+        <div
+          className="relative mt-10 overflow-hidden rounded-3xl border border-white/10 bg-slate-900/70 p-6 shadow-2xl shadow-violet-950/20 backdrop-blur-xl sm:p-10"
+          data-aos="zoom-in"
         >
-          Fale Comigo
-        </h2>
+          <div className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-emerald-400/10 blur-3xl" />
+          <div className="absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-violet-500/10 blur-3xl" />
 
-        <p
-          data-aos="fade-up"
-          data-aos-duration="1100"
-          className="text-slate-400 max-w-2xl mx-auto text-sm md:text-base mt-2"
-        >
-          Tem alguma pergunta? Envie-me uma mensagem e responderei em breve.
-        </p>
-      </div>
-
-      <div className="h-auto py-10 flex items-center justify-center">
-        <div className="container grid grid-cols-1 lg:grid-cols-[45%_55%] gap-12">
-
-          <div className="bg-white/5 backdrop-blur-xl rounded-3xl shadow-2xl p-10">
-
-            <div className="flex justify-between items-start mb-8">
-              <div>
-                <h2 className="text-4xl font-bold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-[#6366f1] to-[#a855f7]">
-                  Contato
-                </h2>
-
-                <p className="text-gray-400">
-                  Algo para discutir? Envie-me uma mensagem e vamos conversar.
-                </p>
+          <div className="relative grid items-center gap-8 lg:grid-cols-[1fr_auto]">
+            <div>
+              <div className="flex items-center gap-4">
+                <div className="rounded-2xl bg-emerald-400/10 p-4 text-emerald-300">
+                  <MessageCircle className="h-8 w-8" />
+                </div>
+                <div>
+                  <p className="text-sm font-medium text-slate-400">WhatsApp profissional</p>
+                  <p className="mt-1 text-xl font-semibold text-white sm:text-2xl">(48) 99611-6327</p>
+                </div>
               </div>
 
-              <Share2 className="w-10 h-10 text-[#6366f1] opacity-50" />
+              <p className="mt-6 max-w-2xl text-sm leading-6 text-slate-400 sm:text-base">
+                Uma conversa rápida é o melhor caminho para entender como minha experiência com React, Node.js, Python, n8n, dados e infraestrutura pode contribuir para a sua empresa.
+              </p>
+
+              <div className="mt-6 flex flex-wrap gap-3">
+                {professionalLinks.map(({ label, href, icon: Icon }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm font-medium text-slate-300 transition hover:border-violet-400/40 hover:text-white"
+                  >
+                    <Icon className="h-4 w-4" />
+                    {label}
+                  </a>
+                ))}
+              </div>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-
-              <div className="relative group">
-                <User className="absolute left-4 top-4 w-5 h-5 text-gray-400" />
-
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Seu Nome"
-                  value={formData.name}
-                  onChange={handleChange}
-                  disabled={isSubmitting}
-                  className="w-full p-4 pl-12 bg-white/10 rounded-xl border border-white/20 text-white"
-                  required
-                />
-              </div>
-
-              <div className="relative group">
-                <Mail className="absolute left-4 top-4 w-5 h-5 text-gray-400" />
-
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Seu Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  disabled={isSubmitting}
-                  className="w-full p-4 pl-12 bg-white/10 rounded-xl border border-white/20 text-white"
-                  required
-                />
-              </div>
-
-              <div className="relative group">
-                <MessageSquare className="absolute left-4 top-4 w-5 h-5 text-gray-400" />
-
-                <textarea
-                  name="message"
-                  placeholder="Sua Mensagem"
-                  value={formData.message}
-                  onChange={handleChange}
-                  disabled={isSubmitting}
-                  className="w-full resize-none p-4 pl-12 bg-white/10 rounded-xl border border-white/20 text-white h-[160px]"
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-white py-4 rounded-xl font-semibold flex items-center justify-center gap-2"
-              >
-                <Send className="w-5 h-5" />
-                {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
-              </button>
-
-            </form>
-
-            <div className="mt-10 pt-6 border-t border-white/10 flex justify-center">
-              <SocialLinks />
-            </div>
-
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Conversar com Lucas Gabriel pelo WhatsApp no número (48) 99611-6327"
+              className="group inline-flex min-h-14 w-full items-center justify-center gap-3 rounded-2xl bg-emerald-500 px-6 py-4 font-semibold text-slate-950 shadow-lg shadow-emerald-950/20 transition hover:-translate-y-1 hover:bg-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-300 focus:ring-offset-2 focus:ring-offset-slate-950 lg:w-auto"
+            >
+              <Phone className="h-5 w-5" />
+              Falar no WhatsApp
+              <ArrowUpRight className="h-5 w-5 transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
           </div>
-
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

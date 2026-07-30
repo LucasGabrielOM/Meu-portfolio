@@ -8,9 +8,9 @@ const Footer = () => {
         <span className="block text-sm pb-4 text-gray-500 text-center dark:text-gray-400">
           © {currentYear}{" "}
           <a href="https://github.com/LucasGabrielOM" target="_blank" rel="noreferrer" className="hover:underline">
-            lucasgabriel™
+            Lucas Gabriel
           </a>
-          . All Rights Reserved.
+          . Todos os direitos reservados.
         </span>
       </center>
     </footer>

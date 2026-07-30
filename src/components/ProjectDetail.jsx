@@ -166,7 +166,7 @@ const ProjectDetails = () => {
           content={
             project.Description
               ? project.Description.slice(0, 155)
-              : `Projeto ${project.Title} por Lucas Gabriel de Oliveira Moreira —  Desenvolvedor Full-stack júnior .`
+              : `Projeto ${project.Title} por Lucas Gabriel de Oliveira Moreira — Desenvolvedor Full Stack e especialista em automações.`
           }
         />
         <meta name="robots" content="index, follow" />

@@ -1,18 +1,18 @@
 import React, { useState, useEffect, useCallback, memo } from "react"
 import { Helmet } from "react-helmet-async"
-import { Github, Linkedin, Mail, ExternalLink, Instagram, Sparkles } from "lucide-react"
+import { Github, Linkedin, MessageCircle, ExternalLink, Sparkles } from "lucide-react"
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 
 
 const StatusBadge = memo(() => (
-  <div className="inline-block animate-float lg:mx-0" data-aos="zoom-in" data-aos-delay="400">
+  <div className="inline-block lg:mx-0" data-aos="zoom-in" data-aos-delay="400">
     <div className="relative group">
       <div className="absolute -inset-0.5 bg-gradient-to-r from-[#6366f1] to-[#a855f7] rounded-full blur opacity-30 group-hover:opacity-50 transition duration-1000"></div>
       <div className="relative px-3 sm:px-4 py-2 rounded-full bg-black/40 backdrop-blur-xl border border-white/10">
         <span className="bg-gradient-to-r from-[#6366f1] to-[#a855f7] text-transparent bg-clip-text sm:text-sm text-[0.7rem] font-medium flex items-center">
           <Sparkles className="sm:w-4 sm:h-4 w-3 h-3 mr-2 text-blue-400" />
-          Pronto para inovar
+          Aberto a novas oportunidades
         </span>
         
       </div>
@@ -33,7 +33,7 @@ const MainTitle = memo(() => (
       <span className="relative inline-block mt-2">
         <span className="absolute -inset-2 bg-gradient-to-r from-[#6366f1] to-[#a855f7] blur-2xl opacity-20"></span>
         <span className="relative bg-gradient-to-r from-[#6366f1] to-[#a855f7] bg-clip-text text-transparent">
-           Full-stack júnior 
+          Full Stack & Automações
         </span>
       </span>
     </h1>
@@ -46,20 +46,23 @@ const TechStack = memo(({ tech }) => (
   </div>
 ));
 
-const CTAButton = memo(({ href, text, icon: Icon }) => (
-  <a href={href}>
-    <button className="group relative w-[160px]">
-      <div className="absolute -inset-0.5 bg-gradient-to-r from-[#4f52c9] to-[#8644c5] rounded-xl opacity-50 blur-md group-hover:opacity-90 transition-all duration-700"></div>
-      <div className="relative h-11 bg-[#030014] backdrop-blur-xl rounded-lg border border-white/10 leading-none overflow-hidden">
-        <div className="absolute inset-0 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 bg-gradient-to-r from-[#4f52c9]/20 to-[#8644c5]/20"></div>
-        <span className="absolute inset-0 flex items-center justify-center gap-2 text-sm group-hover:gap-3 transition-all duration-300">
-          <span className="bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent font-medium z-10">
-            {text}
-          </span>
-          <Icon className={`w-4 h-4 text-gray-200 ${text === 'Contato' ? 'group-hover:translate-x-1' : 'group-hover:rotate-45'} transform transition-all duration-300 z-10`} />
+const CTAButton = memo(({ href, text, icon: Icon, external = false }) => (
+  <a
+    href={href}
+    target={external ? "_blank" : undefined}
+    rel={external ? "noopener noreferrer" : undefined}
+    className="group relative block w-[172px]"
+  >
+    <div className="absolute -inset-0.5 bg-gradient-to-r from-[#4f52c9] to-[#8644c5] rounded-xl opacity-50 blur-md group-hover:opacity-90 transition-all duration-700"></div>
+    <div className="relative h-11 bg-[#030014] backdrop-blur-xl rounded-lg border border-white/10 leading-none overflow-hidden">
+      <div className="absolute inset-0 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 bg-gradient-to-r from-[#4f52c9]/20 to-[#8644c5]/20"></div>
+      <span className="absolute inset-0 flex items-center justify-center gap-2 text-sm group-hover:gap-3 transition-all duration-300">
+        <span className="bg-gradient-to-r from-gray-200 to-white bg-clip-text text-transparent font-medium z-10">
+          {text}
         </span>
-      </div>
-    </button>
+        <Icon className="w-4 h-4 text-gray-200 group-hover:translate-x-1 transform transition-all duration-300 z-10" />
+      </span>
+    </div>
   </a>
 ));
 
@@ -79,14 +82,20 @@ const TYPING_SPEED = 100;
 const ERASING_SPEED = 50;
 const PAUSE_DURATION = 2000;
 
-const WORDS = ["Estudante de Tecnologia", "Profissional em constante desenvolvimento"];
+const WORDS = [
+  "Automações e integrações empresariais",
+  "Aplicações web e mobile",
+  "IA aplicada a processos reais",
+];
 
-const TECH_STACK = ["React", "Python", "TypeScript", "Node.js", "Supabase"];
+const TECH_STACK = ["React", "TypeScript", "Python", "Node.js", "n8n"];
+
+const WHATSAPP_URL = "https://wa.me/5548996116327?text=Ol%C3%A1%20Lucas%2C%20vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar%20sobre%20uma%20oportunidade.";
 
 const SOCIAL_LINKS = [
   { icon: Github, link: "https://github.com/LucasGabrielOM", label: "Perfil GitHub" },
   { icon: Linkedin, link: "https://www.linkedin.com/in/lucas-gabriel-de-oliveira-moreira-400769350", label: "Perfil LinkedIn" },
-  { icon: Instagram, link: "https://www.instagram.com/lucs_g0m/", label: "Perfil Instagram" }
+  { icon: MessageCircle, link: WHATSAPP_URL, label: "Falar com Lucas pelo WhatsApp" }
 ];
 
 const Home = () => { 
@@ -145,15 +154,15 @@ const Home = () => {
   return (
     <>
       <Helmet>
-        <title>Lucas Gabriel de Oliveira Moreira — Desenvolvedor Web Full-stack júnior</title>
-        <meta name="description" content="Portfólio oficial de Lucas Gabriel de Oliveira Moreira, desenvolvedor web com foco em Frontend e criação de experiências digitais modernas." />
+        <title>Lucas Gabriel de Oliveira Moreira — Desenvolvedor Full Stack & Automações</title>
+        <meta name="description" content="Desenvolvedor Full Stack especializado em automações, integrações de sistemas, aplicações web e mobile com React, Node.js, Python e n8n." />
         <meta name="robots" content="index, follow" />
       </Helmet>
 
       <div className="min-h-screen bg-[#030014] overflow-hidden px-[5%] sm:px-[5%] lg:px-[10%]" id="Home">
         <div className={`relative z-10 transition-all duration-1000 ${isLoaded ? "opacity-100" : "opacity-0"}`}>
           <div className="container mx-auto min-h-screen">
-            <div className="flex flex-col lg:flex-row items-center justify-center h-screen md:justify-between gap-0 sm:gap-12 lg:gap-20">
+            <div className="flex min-h-screen flex-col items-center justify-center gap-0 pb-10 pt-24 sm:gap-12 lg:flex-row lg:gap-20">
 
               <div className="w-full lg:w-1/2 space-y-6 sm:space-y-8 text-left lg:text-left order-1 lg:order-1 lg:mt-0"
                 data-aos="fade-right"
@@ -164,7 +173,7 @@ const Home = () => {
                   <StatusBadge />
                   <MainTitle />
 
-                  <div className="h-8 flex items-center" data-aos="fade-up" data-aos-delay="800">
+                  <div className="min-h-14 sm:min-h-8 flex items-center" data-aos="fade-up" data-aos-delay="800">
                     <span className="text-xl md:text-2xl bg-gradient-to-r from-gray-100 to-gray-300 bg-clip-text text-transparent font-light">
                       {text}
                     </span>
@@ -174,7 +183,7 @@ const Home = () => {
                   <p className="text-base md:text-lg text-gray-400 max-w-xl leading-relaxed font-light"
                     data-aos="fade-up"
                     data-aos-delay="1000">
-                    Criando websites inovadores, funcionais e com ótima experiência para o usuário.
+                    Transformo processos complexos em software: aplicações web e mobile, automações com n8n, integrações de CRM e ERP e soluções com IA que reduzem trabalho manual.
                   </p>
 
                   <div className="flex flex-wrap gap-3 justify-start" data-aos="fade-up" data-aos-delay="1200">
@@ -184,8 +193,8 @@ const Home = () => {
                   </div>
 
                   <div className="flex flex-row gap-3 w-full justify-start" data-aos="fade-up" data-aos-delay="1400">
-                   <CTAButton href="#Projetos" text="Projetos" icon={ExternalLink} />
-                    <CTAButton href="#contato" text="Contato" icon={Mail} />
+                    <CTAButton href="#Projetos" text="Ver projetos" icon={ExternalLink} />
+                    <CTAButton href={WHATSAPP_URL} text="Falar no WhatsApp" icon={MessageCircle} external />
                   </div>
 
                   <div className="hidden sm:flex gap-4 justify-start" data-aos="fade-up" data-aos-delay="1600">
