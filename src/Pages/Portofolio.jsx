@@ -1,6 +1,12 @@
 import { useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import { Code2, Github, Layers3, ExternalLink, LockKeyhole } from "lucide-react";
+import automacaoPncpCover from "../assets/projects/automacao-pncp.jpg";
+import b2bTechnographicsCover from "../assets/projects/b2b-technographics.jpg";
+import corteCertoCover from "../assets/projects/cortecerto.jpg";
+import dashboardFinancasCover from "../assets/projects/dashboard-financas.jpg";
+import smackChickenCover from "../assets/projects/smack-chicken.jpg";
+import tahImoveisCover from "../assets/projects/tah-imoveis.jpg";
 
 const projects = [
   {
@@ -8,14 +14,14 @@ const projects = [
     description: "Sistema web para controle de quebra de carnes, análise mensal de perdas e escala de folgas em Kanban.",
     language: "TypeScript",
     repo: "https://github.com/LucasGabrielOM/cortecerto-acougue-fort",
-    image: "projects/cortecerto.jpg",
+    image: corteCertoCover,
   },
   {
     name: "B2B Technographics Prospector",
     description: "Plataforma de prospecção B2B com FastAPI, n8n e PostgreSQL para descobrir, enriquecer e priorizar leads.",
     language: "Python",
     repo: "https://github.com/LucasGabrielOM/b2b-technographics-prospector",
-    image: "projects/b2b-technographics.jpg",
+    image: b2bTechnographicsCover,
     private: true,
   },
   {
@@ -23,7 +29,7 @@ const projects = [
     description: "Ecossistema para restaurante com site, caixa, fila da cozinha e dashboard operacional integrados.",
     language: "TypeScript",
     repo: "https://github.com/LucasGabrielOM/smack-chicken",
-    image: "projects/smack-chicken.jpg",
+    image: smackChickenCover,
     private: true,
   },
   {
@@ -31,14 +37,14 @@ const projects = [
     description: "Site imobiliário responsivo com busca de imóveis, apresentação visual e geração de oportunidades comerciais.",
     language: "HTML",
     repo: "https://github.com/LucasGabrielOM/tah-imoveis",
-    image: "projects/tah-imoveis.jpg",
+    image: tahImoveisCover,
   },
   {
     name: "Dashboard Finanças",
     description: "Dashboard financeiro para acompanhar saldo, receitas, despesas, orçamento, transações e metas.",
     language: "TypeScript",
     repo: "https://github.com/LucasGabrielOM/dashboard-financas",
-    image: "projects/dashboard-financas.jpg",
+    image: dashboardFinancasCover,
     private: true,
   },
   {
@@ -46,7 +52,7 @@ const projects = [
     description: "Sistema Python para coleta, tratamento e análise de contratos públicos com Pandas, API REST e visualizações.",
     language: "Python",
     repo: "https://github.com/LucasGabrielOM/sistema-automacao-pncp-python",
-    image: "projects/automacao-pncp.jpg",
+    image: automacaoPncpCover,
   },
 ];
 
@@ -67,13 +73,11 @@ const languageColors = {
 };
 
 function ProjectCard({ project }) {
-  const image = `${import.meta.env.BASE_URL}${project.image}`;
-
   return (
     <article className="group overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 transition hover:-translate-y-1 hover:border-violet-400/40 hover:shadow-2xl hover:shadow-violet-950/40">
       <div className="aspect-video overflow-hidden bg-slate-950">
         <img
-          src={image}
+          src={project.image}
           alt={`Prévia do projeto ${project.name}`}
           loading="lazy"
           className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
