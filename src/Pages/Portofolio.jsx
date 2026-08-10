@@ -5,11 +5,20 @@ import automacaoPncpCover from "../assets/projects/automacao-pncp.jpg";
 import b2bTechnographicsCover from "../assets/projects/b2b-technographics.jpg";
 import corteCertoCover from "../assets/projects/cortecerto.jpg";
 import dashboardFinancasCover from "../assets/projects/dashboard-financas.jpg";
+import rollixPortfolioCover from "../assets/projects/rollix-portfolio.jpg";
 import smackChickenCover from "../assets/projects/smack-chicken.jpg";
 import tahImoveisCover from "../assets/projects/tah-imoveis.jpg";
 import { certificates } from "../data/certificates";
 
 const projects = [
+  {
+    name: "Rollix Portfolio",
+    description: "Website institucional e plataforma de conversão moderna desenvolvida para apresentar serviços, soluções em IA e automações com alta performance.",
+    language: "HTML",
+    repo: "https://github.com/LucasGabrielOM/rollix-portfolio",
+    demo: "https://lucasgabrielom.github.io/rollix-portfolio/",
+    image: rollixPortfolioCover,
+  },
   {
     name: "CorteCerto Açougue Fort",
     description: "Sistema operacional para registrar quebras de carnes, analisar perdas mensais e organizar a escala da equipe em Kanban.",
