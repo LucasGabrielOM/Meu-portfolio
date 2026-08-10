@@ -15,6 +15,7 @@ const projects = [
     description: "Sistema operacional para registrar quebras de carnes, analisar perdas mensais e organizar a escala da equipe em Kanban.",
     language: "TypeScript",
     repo: "https://github.com/LucasGabrielOM/cortecerto-acougue-fort",
+    demo: "https://lucasgabrielom.github.io/cortecerto-acougue-fort/",
     image: corteCertoCover,
   },
   {
@@ -22,8 +23,8 @@ const projects = [
     description: "SaaS de prospecção B2B que descobre empresas, identifica tecnologias, enriquece contatos e prioriza oportunidades comerciais.",
     language: "Python",
     repo: "https://github.com/LucasGabrielOM/b2b-technographics-prospector",
+    demo: "https://b2b-technographics-prospector.onrender.com/dashboard",
     image: b2bTechnographicsCover,
-    private: true,
   },
   {
     name: "Smack Chicken",
