@@ -9,8 +9,7 @@ Este repositório contém meu site de portfólio pessoal, construído com React 
 🌐 Site Online
 
 Portfolio:
-https://lucasgabrielOM.dev
-
+https://lucasgabrielom.github.io/Meu-portfolio/
 GitHub:
 https://github.com/LucasGabrielOM
 
