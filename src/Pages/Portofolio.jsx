@@ -47,7 +47,6 @@ const projects = [
     language: "TypeScript",
     repo: "https://github.com/LucasGabrielOM/dashboard-financas",
     image: dashboardFinancasCover,
-    private: true,
   },
   {
     name: "Automação PNCP",
