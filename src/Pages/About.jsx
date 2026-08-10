@@ -3,6 +3,7 @@ import { FileText, Code, Award, BriefcaseBusiness, ArrowUpRight, Sparkles } from
 import AOS from 'aos'
 import 'aos/dist/aos.css'
 import { certificates } from "../data/certificates";
+import { projects } from "../data/projects";
 
 // Componentes Memoizados
 const Header = memo(() => (
@@ -137,7 +138,7 @@ const StatCard = memo(({ icon: Icon, color, value, label, description, animation
 const AboutPage = () => {
   // Cálculos memoizados
   const { totalProjects, totalCertificates, technicalRoles } = useMemo(() => ({
-    totalProjects: 6,
+    totalProjects: projects.length,
     totalCertificates: certificates.length,
     technicalRoles: professionalExperience.length,
   }), []);

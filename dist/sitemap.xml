@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.eki.my.id/#Home</loc>
+    <loc>https://lucasgabrielom.github.io/Meu-portfolio/#Home</loc>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.eki.my.id/#About</loc>
+    <loc>https://lucasgabrielom.github.io/Meu-portfolio/#sobre</loc>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.eki.my.id/#Portofolio</loc>
+    <loc>https://lucasgabrielom.github.io/Meu-portfolio/#Projetos</loc>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.eki.my.id/#Contact</loc>
+    <loc>https://lucasgabrielom.github.io/Meu-portfolio/#contato</loc>
     <priority>0.8</priority>
   </url>
 </urlset>
