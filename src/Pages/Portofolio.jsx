@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import PropTypes from "prop-types";
-import { Award, CalendarDays, Code2, ExternalLink, Github, Layers3, LockKeyhole } from "lucide-react";
+import { Award, CalendarDays, Code2, ExternalLink, Github, KeyRound, Layers3, LockKeyhole } from "lucide-react";
 import { certificates } from "../data/certificates";
 import { projects } from "../data/projects";
 
@@ -23,40 +23,55 @@ const languageColors = {
 
 function ProjectCard({ project }) {
   return (
-    <article className="group overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 transition hover:-translate-y-1 hover:border-violet-400/40 hover:shadow-2xl hover:shadow-violet-950/40">
-      <div className="aspect-video overflow-hidden bg-slate-950">
-        <img
-          src={project.image}
-          alt={`Prévia do projeto ${project.name}`}
-          loading="lazy"
-          className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
-        />
-      </div>
-      <div className="p-5">
-        <div className="mb-3 flex items-center justify-between gap-3">
-          <h3 className="text-xl font-semibold text-white">{project.name}</h3>
-          <span className="flex shrink-0 items-center gap-2 text-xs text-slate-300">
-            <span className={`h-2 w-2 rounded-full ${languageColors[project.language] || languageColors.Web}`} />
-            {project.language}
-          </span>
+    <article className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-slate-900/70 transition hover:-translate-y-1 hover:border-violet-400/40 hover:shadow-2xl hover:shadow-violet-950/40">
+      <div>
+        <div className="aspect-video overflow-hidden bg-slate-950">
+          <img
+            src={project.image}
+            alt={`Prévia do projeto ${project.name}`}
+            loading="lazy"
+            className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+          />
         </div>
-        <p className="min-h-[4.5rem] text-sm leading-6 text-slate-400">{project.description}</p>
-        <div className="mt-5 flex gap-4 text-sm font-medium">
-          {project.demo && (
-            <a className="flex items-center gap-2 text-violet-300 hover:text-white" href={project.demo} target="_blank" rel="noreferrer">
-              Ver online <ExternalLink className="h-4 w-4" />
-            </a>
-          )}
-          {project.private ? (
-            <span className="flex items-center gap-2 text-slate-400" title="Código-fonte não disponível publicamente">
-              Repositório privado <LockKeyhole className="h-4 w-4" />
+        <div className="p-5">
+          <div className="mb-3 flex items-center justify-between gap-3">
+            <h3 className="text-xl font-semibold text-white">{project.name}</h3>
+            <span className="flex shrink-0 items-center gap-2 text-xs text-slate-300">
+              <span className={`h-2 w-2 rounded-full ${languageColors[project.language] || languageColors.Web}`} />
+              {project.language}
             </span>
-          ) : (
-            <a className="flex items-center gap-2 text-slate-300 hover:text-white" href={project.repo} target="_blank" rel="noreferrer">
-              Código <Github className="h-4 w-4" />
-            </a>
+          </div>
+          <p className="min-h-[4rem] text-sm leading-6 text-slate-400">{project.description}</p>
+          
+          {project.demoCredentials && (
+            <div className="mt-3 rounded-xl border border-violet-500/25 bg-violet-500/10 p-3 text-xs text-slate-300">
+              <div className="mb-1.5 flex items-center gap-1.5 font-semibold text-violet-300">
+                <KeyRound className="h-3.5 w-3.5" /> Acesso de Demonstração:
+              </div>
+              <div className="font-mono space-y-0.5 text-slate-200">
+                <div><span className="text-slate-400 font-sans">E-mail:</span> {project.demoCredentials.email}</div>
+                <div><span className="text-slate-400 font-sans">Senha:</span> {project.demoCredentials.password}</div>
+              </div>
+            </div>
           )}
         </div>
+      </div>
+
+      <div className="p-5 pt-0 mt-auto flex gap-4 text-sm font-medium">
+        {project.demo && (
+          <a className="flex items-center gap-2 text-violet-300 hover:text-white" href={project.demo} target="_blank" rel="noreferrer">
+            Ver online <ExternalLink className="h-4 w-4" />
+          </a>
+        )}
+        {project.private ? (
+          <span className="flex items-center gap-2 text-slate-400" title="Código-fonte não disponível publicamente">
+            Repositório privado <LockKeyhole className="h-4 w-4" />
+          </span>
+        ) : (
+          <a className="flex items-center gap-2 text-slate-300 hover:text-white" href={project.repo} target="_blank" rel="noreferrer">
+            Código <Github className="h-4 w-4" />
+          </a>
+        )}
       </div>
     </article>
   );
@@ -71,6 +86,10 @@ ProjectCard.propTypes = {
     image: PropTypes.string.isRequired,
     private: PropTypes.bool,
     demo: PropTypes.string,
+    demoCredentials: PropTypes.shape({
+      email: PropTypes.string,
+      password: PropTypes.string,
+    }),
   }).isRequired,
 };
 

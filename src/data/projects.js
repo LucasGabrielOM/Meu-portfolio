@@ -47,10 +47,15 @@ export const projects = [
     image: tahImoveisCover,
   },
   {
-    name: "Dashboard Finanças",
-    description: "Painel financeiro interativo para acompanhar receitas, despesas, fluxo de caixa, orçamento, transações e metas.",
+    name: "Duo Finance",
+    description: "Painel de gestão financeira em tempo real para controle de receitas, despesas, fluxo de caixa, orçamento, dívidas e metas.",
     language: "TypeScript",
     repo: "https://github.com/LucasGabrielOM/dashboard-financas",
+    demo: "http://dashboard-financas-lucasgabrielom.onrender.com",
+    demoCredentials: {
+      email: "recrutador.dashfin2@gmail.com",
+      password: "Recrutador#2026Demo",
+    },
     image: dashboardFinancasCover,
   },
   {
